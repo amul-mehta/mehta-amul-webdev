@@ -1,14 +1,70 @@
 input.form-control {
     margin-bottom: 5px;
+
 }
 
 body {
     padding-top: 36px;
+    padding-bottom: 45px;
+    height: 100%;
+}
+html{
+    height: 100%;
+}
+
+.container-fluid {
+    height: 100%;
+    overflow-y: hidden; /* don't show content that exceeds my height */
 }
 
 .navbar{
     color: azure;
 }
-.narginTop{
-  margin-top: 10dp;
+.marginTop{
+  margin-top: 20px;
 }
+.borderMargin{
+    margin: 10px;
+}
+.borderMarginR{
+    margin-right: 10px;
+}
+.outerPadding{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.navbar-default{
+    background-color: #3b7acd;
+    border-color:#2E6DA4;
+    color: #fff;
+}
+
+.navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover{
+    color: white;
+    background-color: transparent;
+}
+.navbar-default .navbar-text{
+    color: #fff;
+}
+
+.navbar-default .navbar-text a{
+    color: #fff;
+}
+
+.navbar-default .navbar-brand{
+    color: #fff;
+}
+.v-divider{
+    height:103%;
+    border-right:1px solid #cccccc;
+}
+
+
+
+
+
+
+
+
+
+
