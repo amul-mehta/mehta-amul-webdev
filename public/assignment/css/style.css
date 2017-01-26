@@ -5,3 +5,10 @@ input.form-control {
 body {
     padding-top: 36px;
 }
+
+.navbar{
+    color: azure;
+}
+.narginTop{
+  margin-top: 10dp;
+}
