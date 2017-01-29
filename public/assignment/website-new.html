@@ -1,11 +1,13 @@
-<html>
+<html lang="en">
 <head>
-    <title>website new</title>
+    <title>New Website</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
     <meta name="HandheldFriendly" content="true">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="css/style.css" rel="stylesheet"/>
 </head>
+
+
 <body>
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
@@ -23,7 +25,8 @@
                     </a>
                 </p>
             </div>
-            <div class="col-xs-9 col-sm-10 col-md-6 col-lg-6">
+
+            <div class="col-xs-10 col-sm-10 col-md-6 col-lg-6">
                 <p class="navbar-text pull-left visible-xs visible-sm">
                     <a href="website-list.html">
                         <span class="glyphicon glyphicon-chevron-left"></span>
@@ -45,36 +48,44 @@
 <div class="container-fluid">
     <div class="container-fluid col-md-5 col-lg-5 hidden-xs hidden-sm sideBorder" >
         <div class="marginTop">
-            <div class="row borderMargin">
-                <div class="col-md-11 col-lg-11 marginTop">
-                    <a href="page-list.html" class="pull-left">Blogging App</a>
+            <div class="row">
+                <div class="col-xs-10">
+                    <a href="page-list.html" class="pull-left  borderMargin">Address Book App</a>
                 </div>
-                <div class="col-md-1 col-lg-1 marginTop">
-                    <a href="website-edit.html" class="pull-left">
+                <div class="col-xs-2">
+                    <a href="website-edit.html" class="pull-right borderMargin">
                         <span class="glyphicon glyphicon-cog"></span>
                     </a>
                 </div>
-                <div class="col-md-11 col-lg-11 marginTop">
-                    <a href="page-list.html" class="pull-left">Address Book App</a>
+                <div class="col-md-10 col-lg-10">
+                    <a href="page-list.html" class="pull-left  borderMargin">Blogger</a>
                 </div>
-                <div class="col-md-1 col-lg-1 marginTop">
-                    <a href="website-edit.html" class="pull-left ">
+                <div class="col-md-2 col-lg-2">
+                    <a href="website-edit.html" class="pull-right borderMargin">
                         <span class="glyphicon glyphicon-cog"></span>
                     </a>
                 </div>
-                <div class="col-md-11 col-lg-11 marginTop">
-                    <a href="page-list.html" class="pull-left">Script Testing App</a>
+                <div class="col-md-10 col-lg-10">
+                    <a href="page-list.html" class="pull-left  borderMargin">Blogging App</a>
                 </div>
-                <div class="col-md-1 col-lg-1 marginTop">
-                    <a href="website-edit.html" class="pull-left ">
+                <div class="col-md-2 col-lg-2">
+                    <a href="website-edit.html" class="pull-right borderMargin">
                         <span class="glyphicon glyphicon-cog"></span>
                     </a>
                 </div>
-                <div class="col-md-11 col-lg-11 marginTop">
-                    <a href="page-list.html" class="pull-left">Blogger App</a>
+                <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11">
+                    <a href="page-list.html" class="pull-left borderMargin">Gizmodo</a>
                 </div>
-                <div class="col-md-1 col-lg-1 marginTop">
-                    <a href="website-edit.html" class="pull-left ">
+                <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
+                    <a href="website-edit.html" class="pull-right borderMargin">
+                        <span class="glyphicon glyphicon-cog"></span>
+                    </a>
+                </div>
+                <div class="col-md-10 col-lg-10">
+                    <a href="page-list.html" class="pull-left borderMargin">Script testing App</a>
+                </div>
+                <div class="col-md-2 col-lg-2">
+                    <a href="website-edit.html" class="pull-right borderMargin">
                         <span class="glyphicon glyphicon-cog"></span>
                     </a>
                 </div>
@@ -82,9 +93,9 @@
         </div>
     </div>
     <div class="container-fluid col-xs-11 col-sm-12 col-md-7 col-lg-7 marginTop">
-        <form>
+        <form action="website-list.html">
             <div class="form-group">
-                <label for="websiteName">Name</label>
+                <label for="websiteName"> Name</label>
                 <input type="text" class="form-control" id="websiteName" placeholder="Name"/>
             </div>
             <div class="form-group">
@@ -92,6 +103,7 @@
                 <textarea class="form-control" rows="6" id="websiteDescription"
                           placeholder="Description"></textarea>
             </div>
+
         </form>
     </div>
 </div>
