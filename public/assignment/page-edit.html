@@ -1,27 +1,44 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <meta name="HandheldFriendly" content="true">
     <title> Edit Pages </title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="css/style.css" rel="stylesheet"/>
 </head>
 <body>
+
+
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11">
+            <div class="col-md-5 col-lg-5 hidden-xs hidden-sm ">
                 <p class="navbar-text pull-left">
+                    <a href="page-list.html">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                </p>
+                <span class="navbar-brand pull-left">Pages</span>
+                <p class="navbar-text pull-right">
+                    <a href="page-new.html">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                </p>
+            </div>
+
+            <div class="col-xs-10 col-sm-10 col-md-6 col-lg-6">
+                <p class="navbar-text pull-left visible-xs visible-sm">
                     <a href="page-list.html">
                         <span class="glyphicon glyphicon-chevron-left"></span>
                     </a>
                 </p>
                 <span class="navbar-brand pull-left">Edit Page</span>
             </div>
-            <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
-                <p class="navbar-text pull-right borderMarginR">
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 pull-right">
+                <p class="navbar-text pull-right">
                     <a href="page-list.html">
-                        <span class="glyphicon glyphicon-ok"></span>
+                        <span class="glyphicon glyphicon-ok pull-right"></span>
                     </a>
                 </p>
             </div>
@@ -29,24 +46,69 @@
     </div>
 </nav>
 
-
-
-<div class="container-fluid marginTop">
-    <form action="page-list.html">
-        <div class="form-group">
-            <label for="pageName">Name</label>
-            <input type="text" class="form-control" id="pageName" placeholder=" Page Name" value="Blog Post"/>
+<div class="container-fluid">
+    <div class="container-fluid col-md-5 col-lg-5 hidden-xs hidden-sm sideBorder" >
+        <div class="marginTop">
+            <div class="row outerPadding marginTop">
+            <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11">
+                <a href="widget-list.html" class="pull-left borderMargin">Blog Post</a>
+            </div>
+            <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
+                <a href="page-edit.html" class="pull-right borderMargin">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </a>
+            </div>
+            <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11">
+                <a href="widget-list.html" class="pull-left borderMargin">Blogs</a>
+            </div>
+            <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
+                <a href="page-edit.html" class="pull-right borderMargin">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </a>
+            </div>
+            <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11">
+                <a href="widget-list.html" class="pull-left borderMargin">Home</a>
+            </div>
+            <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
+                <a href="page-edit.html" class="pull-right borderMargin">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </a>
+            </div>
+            <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11">
+                <a href="widget-list.html" class="pull-left borderMargin">About Us</a>
+            </div>
+            <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
+                <a href="page-edit.html" class="pull-right borderMargin">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </a>
+            </div>
+            <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11">
+                <a href="widget-list.html" class="pull-left borderMargin">Contact Us</a>
+            </div>
+            <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
+                <a href="page-edit.html" class="pull-right borderMargin">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </a>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="pageTitle">Title</label>
-            <input type="text" class="form-control" id="pageTitle" placeholder="Page Title"/>
         </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-block btn-danger">Delete</button>
-        </div>
-    </form>
+    </div>
+    <div class="container-fluid col-xs-11 col-sm-12 col-md-7 col-lg-7 marginTop">
+        <form action="page-list.html">
+            <div class="form-group">
+                <label for="pageName">Name</label>
+                <input type="text" class="form-control" id="pageName" placeholder=" Page Name" value="Blog Post"/>
+            </div>
+            <div class="form-group">
+                <label for="pageTitle">Title</label>
+                <input type="text" class="form-control" id="pageTitle" placeholder="Page Title"/>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-block btn-danger">Delete</button>
+            </div>
+        </form>
+    </div>
 </div>
-
 
 
 
