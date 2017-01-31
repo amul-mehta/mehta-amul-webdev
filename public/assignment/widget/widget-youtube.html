@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
     <meta name="HandheldFriendly" content="true">
-    <title> Widget Edit </title>
+    <title> Widget Image </title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="css/style.css" rel="stylesheet"/>
+    <link href="../css/style.css" rel="stylesheet"/>
 </head>
 <body>
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -36,26 +36,24 @@
     <form action="widget-list.html">
         <div class="form-group marginTop" >
             <label for="widgetName">Name</label>
-            <input type="text" id="widgetName" class="form-control" placeholder="Name"/>
+            <input type="text" id="widgetName" class="form-control" placeholder="Widget Name"/>
         </div>
         <div class="form-group">
             <div class="form-group">
                 <label for="widgetText">Text</label>
-                <input type="text" id="widgetText" class="form-control" placeholder="Text" value="wireframe"/>
+                <input type="text" id="widgetText" class="form-control" placeholder="Widget Text"/>
             </div>
         </div>
         <div class="form-group">
             <div class="form-group">
-                <label for="widgetSize">Size</label>
-                <select  id="widgetSize" class="form-control" >
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
-
-                </select>
+                <label for="widgetText">URL</label>
+                <input type="text" id="widgetText" class="form-control" placeholder="Widget Text" value="http://www.youtu.be/uLWLashCXHE"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-group">
+                <label for="widgetText">Width</label>
+                <input type="text" id="widgetText" class="form-control" placeholder="Widget Width"/>
             </div>
         </div>
         <div class="form-group">
@@ -74,7 +72,7 @@
             </div>
             <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
                 <p class="navbar-text pull-right borderMarginR" >
-                    <a href="profile.html">
+                    <a href="../user/profile.html">
                         <span class="glyphicon glyphicon-user"></span>
                     </a>
                 </p>
