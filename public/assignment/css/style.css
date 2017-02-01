@@ -48,7 +48,7 @@ body {
     color: #fff;
 }
 .sideBorder{
-    height:101%;
+    height:99%;
     border-right:1px solid #cccccc;
 }
 
@@ -71,7 +71,9 @@ body {
     padding-right: 0px;
     height: 25px;
 }
-
+.noscroll{
+    overflow: hidden;
+}
 a:hover{
     text-decoration: none;
 }
