@@ -59,6 +59,7 @@ body {
 .widget-style{
     background-color: white;
     border-bottom-left-radius: 5px;
+    opacity:.8;
 }
 .sidebar{
     height:100%;
