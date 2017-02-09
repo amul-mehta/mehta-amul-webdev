@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
     <meta name="HandheldFriendly" content="true">
-    <title> Widget Edit </title>
+    <title> Widget Image </title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="../css/style.css" rel="stylesheet"/>
 </head>
@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11">
                 <p class="navbar-text pull-left">
-                    <a href="widget-list.html">
+                    <a href="widget-list.view.client.html">
                         <span class="glyphicon glyphicon-chevron-left"></span>
                     </a>
                 </p>
@@ -22,7 +22,7 @@
             </div>
             <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
                 <p class="navbar-text pull-right borderMarginR">
-                    <a href="widget-list.html">
+                    <a href="widget-list.view.client.html">
                         <span class="glyphicon glyphicon-ok"></span>
                     </a>
                 </p>
@@ -33,7 +33,7 @@
 
 
 <div class="container-fluid">
-    <form action="widget-list.html">
+    <form action="widget-list.view.client.html">
         <div class="form-group marginTop" >
             <label for="widgetName">Name</label>
             <input type="text" id="widgetName" class="form-control" placeholder="Name"/>
@@ -41,22 +41,30 @@
         <div class="form-group">
             <div class="form-group">
                 <label for="widgetText">Text</label>
-                <input type="text" id="widgetText" class="form-control" placeholder="Text" value="US Senate Reaches Compromise on Emergency Zika Funding"/>
+                <input type="text" id="widgetText" class="form-control" placeholder="Text"/>
             </div>
         </div>
         <div class="form-group">
             <div class="form-group">
-                <label for="widgetSize">Size</label>
-                <select  id="widgetSize" class="form-control" >
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
-
-                </select>
+                <label for="widgetText">URL</label>
+                <input type="text" id="widgetText" class="form-control" placeholder="Text" value="http://www.jqueryscript.net/images/Simplest-Responsive-jQuery-Image-Lightbox-Plugin-simple-lightbox.jpg"/>
             </div>
+        </div>
+        <div class="form-group">
+            <div class="form-group">
+                <label for="widgetText">Width</label>
+                <input type="text" id="widgetText" class="form-control" placeholder="Width" value="100%"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-group">
+                <label for="widgetUpload">Upload</label>
+                <input type="file" id="widgetUpload" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn-block btn-primary">Upload Image</button>
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-block btn-danger">Delete</button>
@@ -74,7 +82,7 @@
             </div>
             <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
                 <p class="navbar-text pull-right borderMarginR" >
-                    <a href="../user/profile.html">
+                    <a href="../../user/templates/profile.view.client.html">
                         <span class="glyphicon glyphicon-user"></span>
                     </a>
                 </p>
