@@ -93,7 +93,7 @@
                     break;
                 }
             }
-            return pageFound;
+            return angular.copy(pageFound);
         }
 
         function updatePage(pageId, page) {
