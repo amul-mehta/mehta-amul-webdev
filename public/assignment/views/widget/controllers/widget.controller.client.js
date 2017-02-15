@@ -105,6 +105,7 @@
 
         function updateWidget() {
             var updateSuccessful = WidgetService.updateWidget(vm.currentWidgetId, vm.currentWidget);
+
             if (updateSuccessful) {
                 // Redirect to widget list page
                 $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");

@@ -79,10 +79,10 @@
         }
 
         function findWidgetById(widgetId) {
-            widgetFound = null;
+            var widgetFound = null;
 
             for (var w in widgets) {
-                widget = widgets[w];
+                var widget = widgets[w];
                 if (widget._id === widgetId) {
                     widgetFound = widget;
                     break;
@@ -94,7 +94,7 @@
         function updateWidget(widgetId, widget) {
             var updateSuccessful = false;
             for (var w in widgets) {
-                curwidget = widgets[w];
+                var curwidget = widgets[w];
                 if (curwidget._id === widgetId) {
                     widgets[w] = widget;
                     updateSuccessful = true;

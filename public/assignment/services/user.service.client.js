@@ -85,8 +85,6 @@
 
         // Adds the user parameter instance to the local users array
         function createUser(user) {
-            console.log("inuser");
-            console.log(user);
             if (!findUserByUsername(user.username)) {
                 var newUser = {
                     _id: getNewUserId(),
@@ -109,7 +107,7 @@
         // Returns the user in local users array whose username matches the parameter username
         function findUserByUsername(username) {
 
-            userFound = null;
+            var userFound = null;
 
             for (var u in users) {
                 user = users[u];
@@ -123,7 +121,7 @@
 
         // Updates the user in local users array whose _id matches the userId parameter
         function updateUser(userId, user) {
-            updateSuccessful = false;
+            var updateSuccessful = false;
             for (var u in users) {
                 curUser = users[u];
                 if (curUser._id === userId) {
@@ -134,7 +132,6 @@
                     break;
                 }
             }
-            console.log(users);
             return updateSuccessful;
         }
 
@@ -151,7 +148,7 @@
 
         // Returns the user whose username and password match the username and password parameters
         function findUserByCredentials(username, password) {
-            userFound = null;
+            var userFound = null;
 
             for (var u in users) {
                 user = users[u];
@@ -166,7 +163,7 @@
         // Returns the user in local users array whose _id matches the userId parameter
         function findUserById(userId) {
 
-            userFound = null;
+            var userFound = null;
 
             for (var u in users) {
                 user = users[u];

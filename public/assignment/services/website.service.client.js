@@ -47,9 +47,9 @@
         // Adds the website parameter instance to the local websites array.
         // The new website's developerId is set to the userId parameter
         function createWebsite(userId, website) {
-            websiteCreated = false;
+            var websiteCreated = false;
 
-            websiteExisting = false;
+            var websiteExisting = false;
 
             for (var w in websites) {
                 if ((w.name === website.name) && (w.developerId === userId)) {
@@ -75,11 +75,11 @@
 
         // Retrieves the websites in local websites array whose developerId matches the parameter userId
         function findWebsitesByUser(userId) {
-            result = [];
+            var esult = [];
 
             for (var w in websites) {
 
-                website = websites[w];
+                var website = websites[w];
 
                 if (website.developerId === userId) {
                     result.push(website);
@@ -90,10 +90,10 @@
 
         // Retrieves the website in local websites array whose _id matches the websiteId parameter
         function findWebsiteById(websiteId) {
-            websiteFound = null;
+            var websiteFound = null;
 
             for (var w in websites) {
-                website = websites[w];
+                var website = websites[w];
                 if (website._id === websiteId) {
                     websiteFound = website;
                     break;
@@ -106,7 +106,7 @@
         function updateWebsite(websiteId, website) {
             var updateSuccessful = false;
             for (var w in websites) {
-                curWebSite = websites[w];
+                var curWebSite = websites[w];
                 if (curWebSite._id === websiteId) {
                     websites[w].name = website.name;
                     websites[w].description = website.description;

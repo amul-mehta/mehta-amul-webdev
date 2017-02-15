@@ -38,7 +38,7 @@
                 vm.error = "Please give name for the website!!";
             }
             else {
-                websiteCreated = WebsiteService.createWebsite(vm.userId, newWebSite);
+                var websiteCreated = WebsiteService.createWebsite(vm.userId, newWebSite);
 
                 if (websiteCreated) {
                     // Redirecting to website list page

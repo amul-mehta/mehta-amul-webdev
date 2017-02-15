@@ -43,9 +43,9 @@
         }
 
         function createPage(websiteId, page) {
-            pageCreated = false;
+            var pageCreated = false;
 
-            pageExisting = false;
+            var pageExisting = false;
 
             for (var p in pages) {
                 if ((p.name === page.name) && (p.websiteId === websiteId)) {
@@ -70,7 +70,7 @@
         }
 
         function findPageByWebsiteId(websiteId) {
-            result = [];
+            var result = [];
 
             for (var p in pages) {
 
@@ -84,7 +84,7 @@
         }
 
         function findPageById(pageId) {
-            pageFound = null;
+            var pageFound = null;
 
             for (var p in pages) {
                 page = pages[p];
@@ -97,7 +97,7 @@
         }
 
         function updatePage(pageId, page) {
-            updateSuccessful = false;
+            var updateSuccessful = false;
             for (var p in pages) {
                 curPage = pages[p];
                 if (curPage._id === pageId) {
@@ -111,7 +111,7 @@
         }
 
         function deletePage(pageId) {
-            deleteSuccessful = false;
+            var deleteSuccessful = false;
 
             for (var index = 0; index < pages.length; index++) {
                 if (pages[index]._id === pageId) {

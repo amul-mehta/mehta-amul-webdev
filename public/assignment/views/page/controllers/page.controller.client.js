@@ -6,7 +6,7 @@
         .module("WebAppMaker")
         .controller("PageListController",PageListController)
         .controller("NewPageController", NewPageController)
-        .controller("EditPageController", EditPageController)
+        .controller("EditPageController", EditPageController);
 
     function PageListController($routeParams, PageService){
         var vm = this;
@@ -36,7 +36,7 @@
             }
             else{
                 console.log("In Page created");
-                pageCreated = PageService.createPage(vm.websiteId, newPage);
+                var pageCreated = PageService.createPage(vm.websiteId, newPage);
 
                 if(pageCreated){
                     // Redirecting to website list page
