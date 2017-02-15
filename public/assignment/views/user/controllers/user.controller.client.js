@@ -1,74 +1,101 @@
 /**
  * Created by amulmehta on 2/8/17.
  */
-(function(){
+(function () {
     angular
         .module("WebAppMaker")
-        .controller("LoginController",LoginController)
-        .controller("ProfileController",ProfileController)
+        .controller("LoginController", LoginController)
+        .controller("ProfileController", ProfileController)
         .controller("RegisterController", RegisterController);
 
-    function LoginController($location, UserService){
+    // _id when accessing directly from array, userId when accesing from variable
+    function LoginController($location, UserService) {
 
         var vm = this;
-        vm.error = null;
-        vm.login = login;
 
-        function login(username, password){
-            console.log(typeof username);
-            console.log(typeof password);
+        function init() {
+            vm.error = null;
+            vm.login = login;
+        }
 
-            if(typeof(username) === "undefined"|| typeof(password) === "undefined"){
+        init();
+
+        function login(username, password) {
+
+            if (typeof(username) === "undefined" || typeof(password) === "undefined") {
                 vm.error = "Username / Password cannot be blank";
                 return;
             }
-            var user = UserService.findUserByCredentials(username,password);
+            var user = UserService.findUserByCredentials(username, password);
 
-            if(user === null){
+            if (user === null) {
                 vm.error = "No such user";
             }
-            else{
+            else {
                 $location.url("/user/" + user._id);
             }
         }
     }
 
-    function ProfileController($routeParams, UserService){
+    function ProfileController($routeParams, $location, UserService) {
 
         var vm = this;
-        vm.updateProfile = updateProfile;
+        vm.updateUser = updateUser;
+        vm.unregisterUser = unregisterUser;
 
-        function init(){
-            var userId = UserService.findUserById($routeParams.uid);
-
-            if(userId != null) {
-                vm.user = userId;
+        function init() {
+            var userById = UserService.findUserById($routeParams.uid);
+            vm.error = null;
+            vm.userId = $routeParams['uid'];
+            if (userById != null) {
+                vm.user = userById;
             }
-            else{
+            else {
                 vm.error = "No such user";
             }
         }
+
         init();
 
-        function updateProfile(userId){
-            isUpdateSuccessful = UserService.updateUser(userId,vm.user);
-
-            if(isUpdateSuccessful){
+        function updateUser(userId, updateUser) {
+            var isUpdateSuccessful = UserService.updateUser(userId, updateUser);
+            if (isUpdateSuccessful) {
                 vm.success = "User successfully updated";
             }
             else {
                 vm.error = "Failed to update user";
             }
         }
+
+        function unregisterUser() {
+            console.log(vm.userId);
+            var isDeleteSuccessful = UserService.deleteUser(vm.userId);
+
+            if (isDeleteSuccessful) {
+                $location.url("/login");
+            }
+            else {
+                vm.error = "Failed to update user";
+            }
+        }
+
     }
 
-    function RegisterController($location, UserService){
+    function RegisterController($location, UserService) {
+
         var vm = this;
         vm.createNewUser = createNewUser;
 
-        function createNewUser(user){
+        function init() {
+            vm.error = null;
+        }
 
-            if(user.password === user.verifypassword) {
+        init();
+
+        function createNewUser(user) {
+
+            if (user.password === user.verifypassword) {
+                console.log(user);
                 isUserCreated = UserService.createUser(user);
 
                 if (isUserCreated != null) {
@@ -78,7 +105,7 @@
                     vm.error = "Failed to create user. Please try again!!"
                 }
             }
-            else{
+            else {
                 vm.error = "Passwords do not match!!"
             }
         }

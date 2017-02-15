@@ -1,0 +1,41 @@
+<div class="container-fluid">
+    <form>
+        <div class="form-group marginTop">
+            <label for="widgetName">Name</label>
+            <input type="text" id="widgetName" class="form-control" placeholder="Name"/>
+        </div>
+        <div class="form-group">
+            <div class="form-group">
+                <label for="widgetText">Text</label>
+                <input type="text" id="widgetText" class="form-control" placeholder="Text"
+                       ng-model="model.currentWidget.text"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-group">
+                <label for="widgetURL">URL</label>
+                <input type="text" id="widgetURL" class="form-control" placeholder="URL"
+                       ng-model="model.currentWidget.url"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-group">
+                <label for="widgetWidth">Width</label>
+                <input type="text" id="widgetWidth" class="form-control" placeholder="Width"
+                       ng-model="model.currentWidget.width"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-group">
+                <label for="widgetUpload">Upload</label>
+                <input type="file" id="widgetUpload" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn-block btn-primary">Upload Image</button>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-block btn-danger" ng-click="model.deleteWidget()">Delete</button>
+        </div>
+    </form>
+</div>

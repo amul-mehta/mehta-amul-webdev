@@ -1,25 +1,15 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-    <meta name="HandheldFriendly" content="true">
-    <title> Edit Pages </title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../css/style.css" rel="stylesheet"/>
-</head>
-<body>
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-5 col-lg-5 hidden-xs hidden-sm ">
                 <p class="navbar-text pull-left">
-                    <a href="page-list.view.client.html">
+                    <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page">
                         <span class="glyphicon glyphicon-chevron-left"></span>
                     </a>
                 </p>
                 <span class="navbar-brand pull-left">Pages</span>
                 <p class="navbar-text pull-right">
-                    <a href="page-new.view.client.html">
+                    <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/new">
                         <span class="glyphicon glyphicon-plus"></span>
                     </a>
                 </p>
@@ -27,7 +17,7 @@
 
             <div class="col-xs-10 col-sm-10 col-md-6 col-lg-6">
                 <p class="navbar-text pull-left visible-xs visible-sm">
-                    <a href="page-list.view.client.html">
+                    <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page">
                         <span class="glyphicon glyphicon-chevron-left"></span>
                     </a>
                 </p>
@@ -35,7 +25,7 @@
             </div>
             <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 pull-right">
                 <p class="navbar-text pull-right">
-                    <a href="page-list.view.client.html">
+                    <a href ng-click="model.createNewPage(model.page)">
                         <span class="glyphicon glyphicon-ok pull-right"></span>
                     </a>
                 </p>
@@ -46,68 +36,46 @@
 
 
 <div class="container-fluid">
-    <div class="container-fluid col-md-5 col-lg-5 hidden-xs hidden-sm sideBorder" >
+    <div class="container-fluid col-md-5 col-lg-5 hidden-xs hidden-sm sideBorder">
         <div class="marginTop">
             <div class="row outerPadding marginTop">
-                <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11">
-                    <a href="../../widget/templates/widget-list.view.client.html" class="pull-left borderMargin">Blog Post</a>
-                </div>
-                <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
-                    <a href="page-edit.view.client.html" class="pull-right borderMargin">
-                        <span class="glyphicon glyphicon-cog"></span>
-                    </a>
-                </div>
-                <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11">
-                    <a href="../../widget/templates/widget-list.view.client.html" class="pull-left borderMargin">Blogs</a>
-                </div>
-                <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
-                    <a href="page-edit.view.client.html" class="pull-right borderMargin">
-                        <span class="glyphicon glyphicon-cog"></span>
-                    </a>
-                </div>
-                <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11">
-                    <a href="../../widget/templates/widget-list.view.client.html" class="pull-left borderMargin">Home</a>
-                </div>
-                <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
-                    <a href="page-edit.view.client.html" class="pull-right borderMargin">
-                        <span class="glyphicon glyphicon-cog"></span>
-                    </a>
-                </div>
-                <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11">
-                    <a href="../../widget/templates/widget-list.view.client.html" class="pull-left borderMargin">About Us</a>
-                </div>
-                <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
-                    <a href="page-edit.view.client.html" class="pull-right borderMargin">
-                        <span class="glyphicon glyphicon-cog"></span>
-                    </a>
-                </div>
-                <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11">
-                    <a href="../../widget/templates/widget-list.view.client.html" class="pull-left borderMargin">Contact Us</a>
-                </div>
-                <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
-                    <a href="page-edit.view.client.html" class="pull-right borderMargin">
-                        <span class="glyphicon glyphicon-cog"></span>
-                    </a>
+                <div ng-repeat="page in model.pages">
+
+                    <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11">
+                        <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}/widget"
+                           class="pull-left borderMargin">
+                            {{page.name}}
+                        </a>
+                    </div>
+                    <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
+                        <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}"
+                           class="pull-right borderMargin">
+                            <span class="glyphicon glyphicon-cog"></span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="container-fluid col-xs-12 col-sm-12 col-md-7 col-lg-7 marginTop">
-        <form action="page-list.view.client.html">
+        <div ng-show="model.error" class="alert alert-danger" role="alert">
+            {{model.error}}
+        </div>
+        <form>
             <div class="form-group">
                 <label for="pageName">Name</label>
-                <input type="text" class="form-control" id="pageName" placeholder="Page Name" />
+                <input type="text" class="form-control" id="pageName" placeholder="Page Name"
+                       ng-model="model.page.name"/>
             </div>
             <div class="form-group">
                 <label for="pageTitle">Title</label>
-                <input type="text" class="form-control" id="pageTitle" placeholder="Page Title"/>
+                <input type="text" class="form-control" id="pageTitle" placeholder="Page Title"
+                       ng-model="model.page.description"/>
             </div>
         </form>
     </div>
 </div>
-
-
 
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
@@ -116,8 +84,8 @@
             <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11">
             </div>
             <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
-                <p class="navbar-text pull-right borderMarginR" >
-                    <a href="../../user/templates/profile.view.client.html">
+                <p class="navbar-text pull-right borderMarginR">
+                    <a href="#/user/{{model.userId}}">
                         <span class="glyphicon glyphicon-user"></span>
                     </a>
                 </p>
@@ -125,7 +93,3 @@
         </div>
     </div>
 </nav>
-
-
-</body>
-</html>

@@ -3,16 +3,16 @@
         <div class="row">
             <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11">
                 <p class="navbar-text pull-left">
-                    <a href="#/user/{{model.userId}}">
+                    <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget">
                         <span class="glyphicon glyphicon-chevron-left"></span>
                     </a>
                 </p>
-                <span class="navbar-brand pull-left">Websites</span>
+                <span class="navbar-brand pull-left">Widget Edit</span>
             </div>
             <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
                 <p class="navbar-text pull-right borderMarginR">
-                    <a href="#/user/{{model.userId}}/website/new">
-                        <span class="glyphicon glyphicon-plus"></span>
+                    <a href ng-click="model.updateWidget()">
+                        <span class="glyphicon glyphicon-ok"></span>
                     </a>
                 </p>
             </div>
@@ -20,24 +20,22 @@
     </div>
 </nav>
 
-<div class="container-fluid">
-    <div class="row outerPadding marginTop">
-        <div ng-repeat="website in model.websites">
-
-            <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11">
-                <a href="#/user/{{model.userId}}/website/{{website._id}}/page" class="pull-left borderMargin">
-                    {{website.name}}
-                </a>
-            </div>
-            <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
-                <a href="#/user/{{model.userId}}/website/{{website._id}}" class="pull-right borderMargin">
-                    <span class="glyphicon glyphicon-cog"></span>
-                </a>
-            </div>
-        </div>
-
+<div ng-switch="model.currentWidget.widgetType">
+    <div ng-switch-when="HEADER">
+        <ng-include src="'views/widget/templates/editors/widget-header-edit.client.html'"></ng-include>
     </div>
 
+    <div ng-switch-when="IMAGE">
+        <ng-include src="'views/widget/templates/editors/widget-image-edit.client.html'"></ng-include>
+    </div>
+
+    <div ng-switch-when="YOUTUBE">
+        <ng-include src="'views/widget/templates/editors/widget-youtube-edit.client.html'"></ng-include>
+    </div>
+
+    <div ng-switch-when="HTML">
+        <ng-include src="'views/widget/templates/editors/widget-html-edit.client.html'"></ng-include>
+    </div>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">

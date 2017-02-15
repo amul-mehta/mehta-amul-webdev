@@ -1,0 +1,27 @@
+<div class="container-fluid">
+    <form>
+        <div class="form-group marginTop">
+            <label for="widgetName">Name</label>
+            <input type="text" id="widgetName" class="form-control" placeholder="Name"/>
+        </div>
+        <div class="form-group">
+            <div class="form-group">
+                <label for="widgetText">Text</label>
+                <input type="text" id="widgetText" class="form-control" placeholder="Text"
+                       ng-model="model.currentWidget.text"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-group">
+                <label for="widgetSize">Size</label>
+                <select id="widgetSize" class="form-control" ng-model="model.currentWidget.size"
+                        ng-options="c for c in model.getOptions"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <button ng-click="model.deleteWidget()" class="btn btn-block btn-danger">Delete</button>
+        </div>
+    </form>
+
+</div>
+

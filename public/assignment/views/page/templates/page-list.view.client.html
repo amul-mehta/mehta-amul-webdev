@@ -1,20 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-    <meta name="HandheldFriendly" content="true">
-    <title> Page List </title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../css/style.css" rel="stylesheet"/>
-</head>
-<body>
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11">
                 <p class="navbar-text pull-left">
-                    <a href="../../website/templates/website-list.view.client.html">
+                    <a href="#/user/{{model.userId}}/website">
                         <span class="glyphicon glyphicon-chevron-left"></span>
                     </a>
                 </p>
@@ -22,7 +11,7 @@
             </div>
             <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
                 <p class="navbar-text pull-right borderMarginR">
-                    <a href="page-new.view.client.html">
+                    <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/new">
                         <span class="glyphicon glyphicon-plus"></span>
                     </a>
                 </p>
@@ -33,58 +22,22 @@
 
 <div class="container-fluid">
     <div class="row outerPadding marginTop">
-        <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11">
-            <a href="../../widget/templates/widget-list.view.client.html" class="pull-left borderMargin">Blog Post</a>
-        </div>
-        <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
-            <a href="page-edit.view.client.html" class="pull-right borderMargin">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-        </div>
-        <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11">
-            <a href="../../widget/templates/widget-list.view.client.html" class="pull-left borderMargin">Blogs</a>
-        </div>
-        <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
-            <a href="page-edit.view.client.html" class="pull-right borderMargin">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-        </div>
-        <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11">
-            <a href="../../widget/templates/widget-list.view.client.html" class="pull-left borderMargin">Home</a>
-        </div>
-        <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
-            <a href="page-edit.view.client.html" class="pull-right borderMargin">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-        </div>
-        <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11">
-            <a href="../../widget/templates/widget-list.view.client.html" class="pull-left borderMargin">About Us</a>
-        </div>
-        <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
-            <a href="page-edit.view.client.html" class="pull-right borderMargin">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-        </div>
-        <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11">
-            <a href="../../widget/templates/widget-list.view.client.html" class="pull-left borderMargin">Contact Us</a>
-        </div>
-        <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
-            <a href="page-edit.view.client.html" class="pull-right borderMargin">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
+        <div ng-repeat="page in model.pages">
+            <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}/widget"
+                   class="pull-left borderMargin">
+                    {{page.name}}
+                </a>
+            </div>
+            <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}"
+                   class="pull-right borderMargin">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </a>
+            </div>
         </div>
     </div>
-
 </div>
-
-
-
-
-
-
-
-
-
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
@@ -92,8 +45,8 @@
             <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11">
             </div>
             <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
-                <p class="navbar-text pull-right borderMarginR" >
-                    <a href="../../user/templates/profile.view.client.html">
+                <p class="navbar-text pull-right borderMarginR">
+                    <a href="#/user/{{model.userId}}">
                         <span class="glyphicon glyphicon-user"></span>
                     </a>
                 </p>
@@ -101,7 +54,3 @@
         </div>
     </div>
 </nav>
-
-
-</body>
-</html>

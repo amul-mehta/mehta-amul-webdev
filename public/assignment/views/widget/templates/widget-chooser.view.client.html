@@ -1,0 +1,89 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11">
+                <p class="navbar-text pull-left">
+                    <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                </p>
+                <span class="navbar-brand pull-left">Choose Widget</span>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="container-fluid">
+
+        <div ng-show="model.error" class="alert alert-danger" role="alert">
+            {{model.error}}
+        </div>
+
+        <div class="row marginTop">
+            <div class="col-xs-12">
+                <a href ng-click="model.createNewWidget(model.newWidgetHeader)" class="pull-left blue borderMargin">Header</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <a href ng-click="model.createNewWidget(model.newWidgetHTML)"
+                   class="pull-left blue borderMargin">HTML</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <a href="" class="pull-left blue borderMargin">Text Input</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <a href="" class="pull-left blue borderMargin">Link</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <a href="" class="pull-left blue borderMargin">Button</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <a href ng-click="model.createNewWidget(model.newWidgetImage)"
+                   class="pull-left blue borderMargin">Image</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <a href ng-click="model.createNewWidget(model.newWidgetYouTube)" class="pull-left blue borderMargin">YouTube</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <a href="" class="pull-left blue borderMargin">Data Table</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <a href="" class="pull-left blue borderMargin">Repeater</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11">
+            </div>
+            <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1">
+                <p class="navbar-text pull-right borderMarginR">
+                    <a href="#/user/{{model.userId}}">
+                        <span class="glyphicon glyphicon-user"></span>
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</nav>
