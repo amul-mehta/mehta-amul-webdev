@@ -52,22 +52,31 @@
             vm.userId = $routeParams['uid'];
             vm.websiteId = $routeParams['wid'];
             vm.pageId = $routeParams['pid'];
-            vm.newWidgetHeader = {_id: "", widgetType: "HEADER", pageId: vm.pageId, size: 2, text: "New Header Text"};
+            vm.newWidgetHeader = {
+                _id: "",
+                widgetType: "HEADER",
+                pageId: vm.pageId,
+                size: 2,
+                text: "New Header Text",
+                name: ""
+            };
             vm.newWidgetImage = {
                 _id: "",
                 widgetType: "IMAGE",
                 pageId: vm.pageId,
                 width: "100%",
-                url: "http://lorempixel.com/400/200/"
+                url: "http://lorempixel.com/400/200/",
+                name: ""
             };
             vm.newWidgetYouTube = {
                 _id: "",
                 widgetType: "YOUTUBE",
                 pageId: vm.pageId,
                 width: "100%",
-                url: "https://youtu.be/AM2Ivdi9c4E"
+                url: "https://youtu.be/AM2Ivdi9c4E",
+                name: ""
             };
-            vm.newWidgetHTML = {_id: "", widgetType: "HTML", pageId: vm.pageId, text: "<p>Lorem ipsum</p>"};
+            vm.newWidgetHTML = {_id: "", widgetType: "HTML", pageId: vm.pageId, text: "<p>Lorem ipsum</p>", name: ""};
         }
 
         init();

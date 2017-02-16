@@ -75,7 +75,7 @@
 
         // Retrieves the websites in local websites array whose developerId matches the parameter userId
         function findWebsitesByUser(userId) {
-            var esult = [];
+            var result = [];
 
             for (var w in websites) {
 

@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 
-var bodyParser = require('body-parser');
+var bodyParser = require('body-parser'); // to parse JSON out of the http body.
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
