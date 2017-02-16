@@ -58,8 +58,6 @@
             var newWidget = widget;
             newWidget._id = getNewWidgetId();
             newWidget.pageId = pageId;
-
-
             widgets.push(newWidget);
 
             return angular.copy(newWidget);

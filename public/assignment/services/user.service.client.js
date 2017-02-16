@@ -56,11 +56,11 @@
             findUserByUsername: findUserByUsername,
             updateUser: updateUser,
             deleteUser: deleteUser,
-            users: usersarr
+            users: userList
         };
         return api;
 
-        function usersarr() {
+        function userList() {
             return users;
         }
 
@@ -162,7 +162,6 @@
 
         // Returns the user in local users array whose _id matches the userId parameter
         function findUserById(userId) {
-
             var userFound = null;
 
             for (var u in users) {
