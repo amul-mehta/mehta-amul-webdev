@@ -13,7 +13,16 @@
 
         function init() {
             vm.userId = $routeParams['uid'];
-            vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
+            var promise = WebsiteService.findWebsitesByUser(vm.userId);
+
+            promise
+                .success(function (arrWebsites) {
+                    vm.websites = arrWebsites;
+                })
+                .error(function (err) {
+                    vm.error = "Error while fetching websites!! Please try after sometime";
+                });
+            //vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
         }
 
         init();
@@ -27,7 +36,17 @@
 
         function init() {
             vm.userId = $routeParams['uid'];
-            vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
+
+            var promise = WebsiteService.findWebsitesByUser(vm.userId);
+
+            promise
+                .success(function (arrWebsites) {
+                    vm.websites = arrWebsites;
+                })
+                .error(function (err) {
+                    vm.error = "Error while fetching websites!! Please try after sometime";
+                });
+            //vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
         }
 
         init();
@@ -38,15 +57,15 @@
                 vm.error = "Please give name for the website!!";
             }
             else {
-                var websiteCreated = WebsiteService.createWebsite(vm.userId, newWebSite);
+                var websiteCreatedPromise = WebsiteService.createWebsite(vm.userId, newWebSite);
 
-                if (websiteCreated) {
-                    // Redirecting to website list page
-                    $location.url("/user/" + vm.userId + "/website");
-                }
-                else {
-                    vm.error = "Failed to create new website";
-                }
+                websiteCreatedPromise
+                    .success(function (newWebSite) {
+                        $location.url("/user/" + vm.userId + "/website");
+                    })
+                    .error(function (err) {
+                        vm.error = "Failed to create new website";
+                    });
             }
         }
     }
@@ -60,23 +79,38 @@
         function init() {
             vm.userId = $routeParams['uid'];
             vm.currentWebSiteId = $routeParams['wid'];
-            vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
-            vm.currentwebsite = WebsiteService.findWebsiteById(vm.currentWebSiteId);
+
+            WebsiteService.findWebsitesByUser(vm.userId)
+                .success(function (arrWebsites) {
+                    vm.websites = arrWebsites;
+                })
+                .error(function (err) {
+                    vm.error = "Error while fetching websites!! Please try after sometime";
+                });
+
+            WebsiteService.findWebsiteById(vm.currentWebSiteId)
+                .success(function (foundWebsite) {
+                    vm.currentwebsite = foundWebsite;
+                })
+                .error(function (err) {
+                    vm.error = "Cannot find current website!! Please try again"
+                });
+
+            //vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
+            //vm.currentwebsite = WebsiteService.findWebsiteById(vm.currentWebSiteId);
         }
 
         init();
 
         function updateWebsite() {
-
+            console.log("fgbgxfgds");
             if (vm.currentwebsite.name != '' && vm.currentwebsite.name != null) {
-                var updateSuccessful = WebsiteService.updateWebsite(vm.currentWebSiteId, vm.currentwebsite);
-                if (updateSuccessful) {
-                    // Redirect to website list page
-                    $location.url("/user/" + vm.userId + "/website");
-                }
-                else {
-                    vm.error = "Failed to update website";
-                }
+                WebsiteService.updateWebsite(vm.currentWebSiteId, vm.currentwebsite)
+                    .success(function (response) {
+                        $location.url("/user/" + vm.userId + "/website");
+                    }, function (error) {
+                        vm.error = "Failed to update website";
+                    });
             }
             else {
                 vm.error = "Website name cannot be empty";
@@ -84,14 +118,13 @@
         }
 
         function deleteWebsite() {
-            var deleteSuccessful = WebsiteService.deleteWebsite(vm.currentWebSiteId);
-            if (deleteSuccessful) {
-                // Redirect to website list page
-                $location.url("/user/" + vm.userId + "/website");
-            }
-            else {
-                vm.error = "Failed to delete website";
-            }
+            WebsiteService.deleteWebsite(vm.currentWebSiteId)
+                .success(function (res) {
+                    $location.url("/user/" + vm.userId + "/website");
+                })
+                .error(function (err) {
+                    vm.error = "Failed to delete website";
+                });
         }
     }
 

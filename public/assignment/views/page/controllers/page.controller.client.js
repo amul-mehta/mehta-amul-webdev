@@ -14,7 +14,12 @@
         function init(){
             vm.userId = $routeParams['uid'];
             vm.websiteId = $routeParams['wid'];
-            vm.pages = PageService.findPageByWebsiteId(vm.websiteId);
+            PageService.findPageByWebsiteId(vm.websiteId)
+                .success(function (pagesFound) {
+                        vm.pages = pagesFound;
+                });
+
+            //vm.pages = PageService.findPageByWebsiteId(vm.websiteId);
         }
         init();
     }
@@ -24,9 +29,10 @@
         vm.createNewPage = createNewPage;
 
         function init(){
+
             vm.userId = $routeParams['uid'];
             vm.websiteId = $routeParams['wid'];
-            vm.pages = PageService.findPageByWebsiteId(vm.websiteId);
+
         }
         init();
 
@@ -36,15 +42,15 @@
             }
             else{
                 console.log("In Page created");
-                var pageCreated = PageService.createPage(vm.websiteId, newPage);
-
-                if(pageCreated){
-                    // Redirecting to website list page
-                    $location.url("/user/"+ vm.userId + "/website/" + vm.websiteId + "/page");
-                }
-                else{
-                    vm.error = "Failed to create new page";
-                }
+                PageService.createPage(vm.websiteId, newPage)
+                    .success(function (newCreatedPage) {
+                        if (newCreatedPage == null){
+                            vm.error = "Failed to create new page, Please try again after sometime";
+                        }
+                        else {
+                            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                        }
+                    });
             }
         }
     }
@@ -58,37 +64,46 @@
             vm.userId = $routeParams['uid'];
             vm.websiteId = $routeParams['wid'];
             vm.pageId = $routeParams['pid'];
-            vm.currentpage = PageService.findPageById(vm.pageId);
-            vm.pages = PageService.findPageByWebsiteId(vm.websiteId);
+            PageService.findPageById(vm.pageId)
+                .success(function (curPage) {
+                    if (curPage == null){
+                        vm.error = "Cannot find current page!! Please try again"
+                    }
+                    else {
+                        vm.currentpage = curPage;
+                    }
+                });
+            //vm.currentpage = PageService.findPageById(vm.pageId);
+            //vm.pages = PageService.findPageByWebsiteId(vm.websiteId);
         }
         init();
 
         function updatePage(){
 
             if(vm.currentpage.name != '' && vm.currentpage.name != null) {
-                var updateSuccessful = PageService.updatePage(vm.pageId, vm.currentpage);
-                if (updateSuccessful) {
-                    // Redirect to page list page
-                    $location.url("/user/"+ vm.userId + "/website/" + vm.websiteId + "/page");
-                }
-                else {
-                    vm.error = "Failed to update page";
-                }
+                PageService.updatePage(vm.pageId, vm.currentpage)
+                    .success(function (page) {
+                        if (page != null) {
+                            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                        }
+                        else{
+                            vm.error = "Failed to update page";
+                    }});
             }
+
             else{
                 vm.error = "Page name cannot be empty";
             }
         }
 
         function deletePage(){
-            var deleteSuccessful = PageService.deletePage(vm.pageId);
-            if(deleteSuccessful){
-                // Redirect to page list page
-                $location.url("/user/"+ vm.userId + "/website/" + vm.websiteId + "/page");
-            }
-            else{
-                vm.error = "Failed to delete page";
-            }
+            PageService.deletePage(vm.pageId)
+                .success(function(res){
+                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                })
+                .error(function(err){
+                    vm.error = "Failed to delete page";
+                });
         }
     }
 
