@@ -24,6 +24,7 @@
             WidgetService.findWidgetsByPageId(vm.pageId)
                 .success(function (widgetsFound) {
                     vm.widgets = widgetsFound;
+                    console.log(widgetsFound);
                 })
                 .error(function (err) {
                     vm.error = "Error while fetching widgets!! Please try after sometime";
@@ -93,11 +94,11 @@
         function createNewWidget(newWidget) {
 
             WidgetService.createWidget(vm.pageId, newWidget)
-                .success(function(widgetCreated){
-                    if(widgetCreated != null) {
+                .success(function (widgetCreated) {
+                    if (widgetCreated != null) {
                         $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + widgetCreated._id);
                     }
-                    else{
+                    else {
                         vm.error = "Failed to create new widget";
                     }
                 });
@@ -127,22 +128,21 @@
             vm.currentWidgetId = $routeParams['wgid'];
 
             WidgetService.getOptions()
-                .success(function(response){
-                    console.log(response);
-                    if(response != null) {
+                .success(function (response) {
+                    if (response != null) {
                         vm.options = response;
                     }
-                    else{
+                    else {
                         vm.error = "Failed to get options";
                     }
                 });
             //vm.getOptions = WidgetService.getOptions();
             WidgetService.findWidgetById(vm.currentWidgetId)
-                .success(function(response){
-                    if(response != null) {
+                .success(function (response) {
+                    if (response != null) {
                         vm.currentWidget = response;
                     }
-                    else{
+                    else {
                         vm.error = "Failed to get current Widget";
                     }
                 });
@@ -153,13 +153,13 @@
 
         function updateWidget() {
             console.log(vm.currentWidget);
-            WidgetService.updateWidget(vm.currentWidgetId,vm.currentWidget)
-                .success(function(response){
+            WidgetService.updateWidget(vm.currentWidgetId, vm.currentWidget)
+                .success(function (response) {
                     console.log(response);
-                    if(response != null) {
+                    if (response != null) {
                         $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
                     }
-                    else{
+                    else {
                         vm.error = "Failed to update widget";
                     }
                 });
@@ -178,10 +178,10 @@
 
         function deleteWidget() {
             WidgetService.deleteWidget(vm.currentWidgetId)
-                .success(function(res){
+                .success(function (res) {
                     $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
                 })
-                .error(function(err){
+                .error(function (err) {
                     vm.error = "Failed to delete widget";
                 });
             // var deleteSuccessful = WidgetService.deleteWidget(vm.currentWidgetId);

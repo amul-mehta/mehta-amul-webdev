@@ -13,6 +13,7 @@
             findWidgetById: findWidgetById,
             updateWidget: updateWidget,
             deleteWidget: deleteWidget,
+            updateWidgetOrder: updateWidgetOrder,
             getOptions: getOptions
         };
         return api;
@@ -109,6 +110,13 @@
         function getOptions() {
             console.log("sdofisd");
             return $http.get("/api/widget/options");
+        }
+        function updateWidgetOrder(pageId, startIndex, endIndex) {
+            console.log("dfsdfs");
+            console.log(pageId);
+            console.log(startIndex);
+            console.log(endIndex);
+            return $http.put("/page/"+pageId+"/widget?initial="+startIndex+"&final="+endIndex);
         }
     }
 })();
