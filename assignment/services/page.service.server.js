@@ -15,23 +15,23 @@ module.exports = function (app) {
     app.put("/api/page/:pageId", updatePage);
     app.delete("/api/page/:pageId", deletePage);
 
-    function createPage(req,res){
+    function createPage(req, res) {
         var newPage = req.body;
         pages.push(newPage);
         res.json(newPage);
     }
 
-    function findAllPagesForWebsite(req,res){
+    function findAllPagesForWebsite(req, res) {
 
         var websiteId = req.params.websiteId;
 
         var result = [];
 
-        for(var p in pages){
+        for (var p in pages) {
 
             var page = pages[p];
 
-            if(page.websiteId === websiteId){
+            if (page.websiteId === websiteId) {
                 result.push(page);
             }
         }
@@ -40,15 +40,15 @@ module.exports = function (app) {
 
     }
 
-    function findPageById(req,res){
+    function findPageById(req, res) {
 
         var pageId = req.params.pageId;
 
         var pageFound = null;
 
-        for(var p in pages){
+        for (var p in pages) {
             var page = pages[p];
-            if(page._id === pageId){
+            if (page._id === pageId) {
                 pageFound = page;
                 break;
             }
@@ -56,14 +56,14 @@ module.exports = function (app) {
         res.json(pageFound);
     }
 
-    function updatePage(req,res){
+    function updatePage(req, res) {
 
         var pageId = req.params.pageId;
         var page = req.body;
         var updatedPage = null;
-        for(var p in pages){
+        for (var p in pages) {
             var curPage = pages[p];
-            if(curPage._id === pageId){
+            if (curPage._id === pageId) {
                 curPage.name = page.name;
                 curPage.description = page.description;
                 updatedPage = curPage;
@@ -73,13 +73,13 @@ module.exports = function (app) {
         res.json(updatedPage);
     }
 
-    function deletePage(req,res){
+    function deletePage(req, res) {
 
         var pageId = req.params.pageId;
 
-        for(var index = 0;index < pages.length; index++){
-            if(pages[index]._id === pageId){
-                pages.splice(index,1);
+        for (var index = 0; index < pages.length; index++) {
+            if (pages[index]._id === pageId) {
+                pages.splice(index, 1);
                 res.sendStatus(200);
                 return;
             }

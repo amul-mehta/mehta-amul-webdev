@@ -43,7 +43,7 @@
         }
 
         function createPage(websiteId, page) {
-            var url = "/api/website/"+websiteId+"/page";
+            var url = "/api/website/" + websiteId + "/page";
 
             var newPage = {
                 _id: getNewPageId(),
@@ -80,7 +80,7 @@
         }
 
         function findPageByWebsiteId(websiteId) {
-            return $http.get( "/api/website/"+websiteId+"/page");
+            return $http.get("/api/website/" + websiteId + "/page");
             // var result = [];
             //
             // for (var p in pages) {
@@ -95,7 +95,7 @@
         }
 
         function findPageById(pageId) {
-            return $http.get("/api/page/"+pageId);
+            return $http.get("/api/page/" + pageId);
             // var pageFound = null;
             //
             // for (var p in pages) {
@@ -109,7 +109,7 @@
         }
 
         function updatePage(pageId, page) {
-            return $http.put( "/api/page/"+pageId, page);
+            return $http.put("/api/page/" + pageId, page);
             // var updateSuccessful = false;
             // for (var p in pages) {
             //     curPage = pages[p];
@@ -124,7 +124,7 @@
         }
 
         function deletePage(pageId) {
-            return $http.delete("/api/page/"+pageId);
+            return $http.delete("/api/page/" + pageId);
             // var deleteSuccessful = false;
             //
             // for (var index = 0; index < pages.length; index++) {

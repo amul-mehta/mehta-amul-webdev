@@ -38,7 +38,7 @@
             var promise = UserService.findUserByCredentials(username, password);
             promise
                 .success(function (user) {
-                    if (user ===  null) {
+                    if (user === null) {
                         vm.error = "No such user";
                     }
                     else {
@@ -131,12 +131,12 @@
 
                 findUserPromise
                     .success(function (foundUser) {
-                        if (foundUser == null){
+                        if (foundUser == null) {
                             var promise = UserService.createUser(user);
                             promise
                                 .success(function (user) {
-                                    if(user == null){
-                                        vm.error = err+ "\nFailed to create user. Please try again!!"
+                                    if (user == null) {
+                                        vm.error = err + "\nFailed to create user. Please try again!!"
                                     }
                                     else {
                                         $location.url("/user/" + user._id);

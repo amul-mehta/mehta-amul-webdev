@@ -63,9 +63,9 @@ module.exports = function (app) {
         var websiteId = req.params.websiteId;
         var website = req.body;
         var updatedWebsite = null;
-        for(var w in websites){
+        for (var w in websites) {
             var curWebSite = websites[w];
-            if(curWebSite._id === websiteId){
+            if (curWebSite._id === websiteId) {
                 curWebSite.name = website.name;
                 curWebSite.description = website.description;
                 updatedWebsite = curWebSite;
@@ -79,9 +79,9 @@ module.exports = function (app) {
 
         var websiteId = req.params.websiteId;
 
-        for(var index = 0;index < websites.length; index++){
-            if(websites[index]._id === websiteId){
-                websites.splice(index,1);
+        for (var index = 0; index < websites.length; index++) {
+            if (websites[index]._id === websiteId) {
+                websites.splice(index, 1);
                 res.sendStatus(200);
                 return;
             }

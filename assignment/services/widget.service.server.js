@@ -5,19 +5,43 @@ module.exports = function (app) {
 
     var widgets =
         [
-            {"_id": "123", "widgetType": "HEADER", "pageId": "321", "size": 2, "text": "GIZMODO", "name": "", "index" : 1},
-            {"_id": "234", "widgetType": "HEADER", "pageId": "321", "size": 4, "text": "Lorem ipsum", "name": "",  "index" : 2},
+            {
+                "_id": "123",
+                "widgetType": "HEADER",
+                "pageId": "321",
+                "size": 2,
+                "text": "GIZMODO",
+                "name": "",
+                "index": 1
+            },
+            {
+                "_id": "234",
+                "widgetType": "HEADER",
+                "pageId": "321",
+                "size": 4,
+                "text": "Lorem ipsum",
+                "name": "",
+                "index": 2
+            },
             {
                 "_id": "345", "widgetType": "IMAGE", "pageId": "321", "width": "100%",
-                "url": "http://lorempixel.com/400/200/", "name": "", "index" : 5
+                "url": "http://lorempixel.com/400/200/", "name": "", "index": 5
             },
-            {"_id": "456", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>", "name": "", "index" : 4 },
-            {"_id": "567", "widgetType": "HEADER", "pageId": "321", "size": 4, "text": "Lorem ipsum", "name": "", "index" : 0},
+            {"_id": "456", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>", "name": "", "index": 4},
+            {
+                "_id": "567",
+                "widgetType": "HEADER",
+                "pageId": "321",
+                "size": 4,
+                "text": "Lorem ipsum",
+                "name": "",
+                "index": 0
+            },
             {
                 "_id": "678", "widgetType": "YOUTUBE", "pageId": "321", "width": "100%",
-                "url": "https://youtu.be/AM2Ivdi9c4E", "name": "", "index" : 3
+                "url": "https://youtu.be/AM2Ivdi9c4E", "name": "", "index": 3
             },
-            {"_id": "789", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>", "name": "", "index" : 6}
+            {"_id": "789", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>", "name": "", "index": 6}
         ];
 
     var options =
@@ -36,12 +60,12 @@ module.exports = function (app) {
 
     var storage = multer.diskStorage({
         destination: function (req, file, cb) {
-            cb(null, __dirname+"/../../public/uploads")
+            cb(null, __dirname + "/../../public/uploads")
         },
         filename: function (req, file, cb) {
             var extArray = file.mimetype.split("/");
             var extension = extArray[extArray.length - 1];
-            cb(null, 'widget_image_' + Date.now()+ '.' +extension)
+            cb(null, 'widget_image_' + Date.now() + '.' + extension)
         }
     });
     var upload = multer({storage: storage});
@@ -52,18 +76,18 @@ module.exports = function (app) {
         var pageId = newWidget.pageId;
         var highestIndex = -1;
 
-        for(var i=0;i<widgets.length;i++){
+        for (var i = 0; i < widgets.length; i++) {
 
-            if(widgets[i].pageId == pageId){
+            if (widgets[i].pageId == pageId) {
 
                 var index = widgets[i].index;
-                if(index > highestIndex){
+                if (index > highestIndex) {
                     highestIndex = index;
                 }
             }
         }
 
-        newWidget.index = highestIndex+1;
+        newWidget.index = highestIndex + 1;
 
         widgets.push(newWidget);
         res.send(newWidget);
@@ -132,9 +156,10 @@ module.exports = function (app) {
         var totalWidgets = widgets.length;
         for (var index = 0; index < totalWidgets; index++) {
             if (widgets[index]._id === widgetId) {
-                var  pageId = widgets[index].pageId;
+                var pageId = widgets[index].pageId;
+                var deleteIndex = widgets[index].index;
                 widgets.splice(index, 1);
-                updateIndexesAfterDelete(index, pageId,totalWidgets-1);
+                updateIndexesAfterDelete(deleteIndex, pageId, totalWidgets - 1);
                 deleteSuccessful = 200;
                 break;
             }
@@ -142,35 +167,40 @@ module.exports = function (app) {
         res.sendStatus(deleteSuccessful);
     }
 
-    function updateIndexesAfterDelete(deletedIndex, deletedWidgetPageId, totalWidgets) {
+    function updateIndexesAfterDelete(deletedIndex, deletedWidgetPageId) {
         var widgetsToUpdate = widgets.filter(function (w) {
             return w.pageId == deletedWidgetPageId;
         });
+        console.log(deletedIndex);
+        console.log("widgets to u[dae");
         console.log(widgetsToUpdate);
-        for(var index = 0 ; index < totalWidgets;index++  ){
+        for (var index = 0; index < widgetsToUpdate.length; index++) {
             console.log(widgetsToUpdate[index].index);
-            if(widgetsToUpdate[index].index > deletedIndex){
+            if (widgetsToUpdate[index].index > deletedIndex) {
                 widgetsToUpdate[index].index--;
             }
         }
+        console.log(widgetsToUpdate);
+        console.log("fgsds");
+        console.log(widgets);
     }
 
 
     function uploadImage(req, res) {
         console.log(req.myFile);
         console.log(req.body);
-        var pageId        = null;
-        var widgetId      = req.body.widgetId;
-        var width         = req.body.width;
-        var userId        = req.body.userId;
-        var websiteId     = req.body.websiteId;
-        var myFile        = req.file;
+        var pageId = null;
+        var widgetId = req.body.widgetId;
+        var width = req.body.width;
+        var userId = req.body.userId;
+        var websiteId = req.body.websiteId;
+        var myFile = req.file;
         var destination = myFile.destination; // folder where file is saved to
 
         for (var i in widgets) {
             if (widgets[i]._id === widgetId) {
                 widgets[i].width = width;
-                widgets[i].url = req.protocol + '://' +req.get('host')+"/uploads/"+myFile.filename;
+                widgets[i].url = req.protocol + '://' + req.get('host') + "/uploads/" + myFile.filename;
                 pageId = widgets[i].pageId;
             }
         }
@@ -193,8 +223,8 @@ module.exports = function (app) {
         });
         var finalIndex = endIndex;
         var increment = false;
-        if(startIndex > endIndex){
-            endIndex = startIndex+endIndex;
+        if (startIndex > endIndex) {
+            endIndex = startIndex + endIndex;
             startIndex = endIndex - startIndex;
             endIndex = endIndex - startIndex;
             finalIndex = startIndex;
@@ -207,18 +237,16 @@ module.exports = function (app) {
         console.log(pageId);
 
 
-
-
         for (var index = 0; index < currentPageWidgets.length; index++) {
             var currentWidget = currentPageWidgets[index];
             if ((currentWidget.index >= startIndex) && (currentWidget.index <= endIndex)) {
                 console.log("PREV index");
                 console.log(currentWidget.index);
-                if(!increment) {
+                if (!increment) {
                     currentPageWidgets[index].index--;
                 }
 
-                else{
+                else {
                     currentPageWidgets[index].index++;
                 }
                 console.log("new index");
@@ -229,7 +257,7 @@ module.exports = function (app) {
         console.log(pervWidget.index);
         console.log("finalIndex");
         console.log(finalIndex);
-        pervWidget.index= finalIndex;
+        pervWidget.index = finalIndex;
         res.sendStatus(200);
     }
 

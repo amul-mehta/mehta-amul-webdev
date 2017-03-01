@@ -2,6 +2,6 @@
  * Created by amulmehta on 2/8/17.
  */
 
-(function(){
+(function () {
     angular.module("WebAppMaker", ["ngRoute"]);
 })();

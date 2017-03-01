@@ -45,15 +45,15 @@
         // Adds the user parameter instance to the local users array
         function createUser(user) {
             var newUser = {
-                    _id: getNewUserId(),
-                    username: user.username,
-                    password: user.password,
-                    firstName: user.firstName,
-                    lastName: user.lastName,
-                    email: user.email
-                };
+                _id: getNewUserId(),
+                username: user.username,
+                password: user.password,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email
+            };
 
-                return $http.post("/api/user", newUser);
+            return $http.post("/api/user", newUser);
         }
 
         // Returns the user in local users array whose username matches the parameter username

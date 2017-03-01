@@ -9,11 +9,11 @@
     function sortableDir() {
         function linkfunc(scope, element, attributes, sortingController) {
             element.sortable({
-                start: function(event, ui){
+                start: function (event, ui) {
                     // Set the start index and make it available for ui item
                     ui.item.startPos = ui.item.index();
                 },
-                update: function(event, ui){
+                update: function (event, ui) {
                     // var widget = ui.item.scope().widget;
                     var startIndex = ui.item.startPos;
                     var endIndex = ui.item.index();
@@ -24,12 +24,14 @@
 
             });
         }
+
         return {
             link: linkfunc,
             controller: sortableWidgetsController
         }
 
     }
+
     function sortableWidgetsController(WidgetService, $routeParams) {
         var vm = this;
         vm.widgetsSort = widgetsSort;

@@ -62,13 +62,15 @@
             vm.userId = $routeParams['uid'];
             vm.websiteId = $routeParams['wid'];
             vm.pageId = $routeParams['pid'];
+
             vm.newWidgetHeader = {
                 _id: "",
                 widgetType: "HEADER",
                 pageId: vm.pageId,
                 size: 2,
                 text: "New Header Text",
-                name: ""
+                name: "",
+                index: -1
             };
             vm.newWidgetImage = {
                 _id: "",
@@ -76,7 +78,8 @@
                 pageId: vm.pageId,
                 width: "100%",
                 url: "http://lorempixel.com/400/200/",
-                name: ""
+                name: "",
+                index: -1
             };
             vm.newWidgetYouTube = {
                 _id: "",
@@ -84,9 +87,17 @@
                 pageId: vm.pageId,
                 width: "100%",
                 url: "https://youtu.be/AM2Ivdi9c4E",
-                name: ""
+                name: "",
+                index: -1
             };
-            vm.newWidgetHTML = {_id: "", widgetType: "HTML", pageId: vm.pageId, text: "<p>Lorem ipsum</p>", name: ""};
+            vm.newWidgetHTML = {
+                _id: "",
+                widgetType: "HTML",
+                pageId: vm.pageId,
+                text: "<p>Lorem ipsum</p>",
+                name: "",
+                index: -1
+            };
         }
 
         init();
@@ -146,7 +157,16 @@
                         vm.error = "Failed to get current Widget";
                     }
                 });
-            //vm.currentWidget = WidgetService.findWidgetById(vm.currentWidgetId);
+            // WidgetService.findWidgetById(vm.currentWidgetId)
+            //     .success(function (response) {
+            //         if (response != null) {
+            //             vm.currentWidget = response;
+            //         }
+            //         else {
+            //             vm.error = "Failed to get current Widget";
+            //         }
+            //     });
+            // vm.currentWidget = WidgetService.findWidgetById(vm.currentWidgetId);
         }
 
         init();
@@ -177,7 +197,9 @@
         }
 
         function deleteWidget() {
-            WidgetService.deleteWidget(vm.currentWidgetId)
+            console.log(vm.currentWidgetId);
+
+            WidgetService.deleteWidget($routeParams['wgid'])
                 .success(function (res) {
                     $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
                 })

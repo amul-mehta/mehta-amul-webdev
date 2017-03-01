@@ -85,7 +85,7 @@ module.exports = function (app) {
         }
     }
 
-    function findUserByUsername(req, res){
+    function findUserByUsername(req, res) {
         var username = req.query.username;
 
         var userFound = null;
@@ -108,7 +108,7 @@ module.exports = function (app) {
             user = users[u];
             if (user.username === username && user.password === password) {
                 userFound = user;
-               }
+            }
         }
         res.json(userFound);
     }
