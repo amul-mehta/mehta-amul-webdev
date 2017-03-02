@@ -6,13 +6,20 @@ module.exports = function (app) {
     var widgets =
         [
             {
+                "_id": "567",
+                "widgetType": "HEADER",
+                "pageId": "321",
+                "size": 4,
+                "text": "Lorem ipsum",
+                "name": ""
+            },
+            {
                 "_id": "123",
                 "widgetType": "HEADER",
                 "pageId": "321",
                 "size": 2,
                 "text": "GIZMODO",
-                "name": "",
-                "index": 1
+                "name": ""
             },
             {
                 "_id": "234",
@@ -20,28 +27,18 @@ module.exports = function (app) {
                 "pageId": "321",
                 "size": 4,
                 "text": "Lorem ipsum",
-                "name": "",
-                "index": 2
-            },
-            {
-                "_id": "345", "widgetType": "IMAGE", "pageId": "321", "width": "100%",
-                "url": "http://lorempixel.com/400/200/", "name": "", "index": 5
-            },
-            {"_id": "456", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>", "name": "", "index": 4},
-            {
-                "_id": "567",
-                "widgetType": "HEADER",
-                "pageId": "321",
-                "size": 4,
-                "text": "Lorem ipsum",
-                "name": "",
-                "index": 0
+                "name": ""
             },
             {
                 "_id": "678", "widgetType": "YOUTUBE", "pageId": "321", "width": "100%",
-                "url": "https://youtu.be/AM2Ivdi9c4E", "name": "", "index": 3
+                "url": "https://youtu.be/AM2Ivdi9c4E", "name": ""
             },
-            {"_id": "789", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>", "name": "", "index": 6}
+            {"_id": "456", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>", "name": "" },
+            {
+                "_id": "345", "widgetType": "IMAGE", "pageId": "321", "width": "100%",
+                "url": "http://lorempixel.com/400/200/", "name": ""
+            },
+            {"_id": "789", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>", "name": "" }
         ];
 
     var options =
@@ -73,21 +70,21 @@ module.exports = function (app) {
 
     function createWidget(req, res) {
         var newWidget = req.body;
-        var pageId = newWidget.pageId;
-        var highestIndex = -1;
+        // var pageId = newWidget.pageId;
+        // var highestIndex = -1;
 
-        for (var i = 0; i < widgets.length; i++) {
-
-            if (widgets[i].pageId == pageId) {
-
-                var index = widgets[i].index;
-                if (index > highestIndex) {
-                    highestIndex = index;
-                }
-            }
-        }
-
-        newWidget.index = highestIndex + 1;
+        // for (var i = 0; i < widgets.length; i++) {
+        //
+        //     if (widgets[i].pageId == pageId) {
+        //
+        //         var index = widgets[i].index;
+        //         if (index > highestIndex) {
+        //             highestIndex = index;
+        //         }
+        //     }
+        // }
+        //
+        // newWidget.index = highestIndex + 1;
 
         widgets.push(newWidget);
         res.send(newWidget);
@@ -107,11 +104,11 @@ module.exports = function (app) {
                 result.push(widget);
             }
         }
-        var sortedWidgetList = result.sort(function (widgeta, widgetb) {
-            return widgeta.index > widgetb.index;
-        });
+        // var sortedWidgetList = result.sort(function (widgeta, widgetb) {
+        //     return widgeta.index > widgetb.index;
+        // });
 
-        res.json(sortedWidgetList);
+        res.json(result);
     }
 
     function findWidgetById(req, res) {
@@ -156,10 +153,10 @@ module.exports = function (app) {
         var totalWidgets = widgets.length;
         for (var index = 0; index < totalWidgets; index++) {
             if (widgets[index]._id === widgetId) {
-                var pageId = widgets[index].pageId;
-                var deleteIndex = widgets[index].index;
+                //var pageId = widgets[index].pageId;
+                //var deleteIndex = widgets[index].index;
                 widgets.splice(index, 1);
-                updateIndexesAfterDelete(deleteIndex, pageId, totalWidgets - 1);
+                //updateIndexesAfterDelete(deleteIndex, pageId, totalWidgets - 1);
                 deleteSuccessful = 200;
                 break;
             }
@@ -209,56 +206,61 @@ module.exports = function (app) {
     }
 
     function updateWidgetOrder(req, res) {
-        var pageId = req.params.pageId;
 
-        var startIndex = parseInt(req.query.initial);
-        var endIndex = parseInt(req.query.final);
+        var start = parseInt(req.query.initial);
+        var end = parseInt(req.query.final);
+        widgets.splice(end, 0, widgets.splice(start, 1)[0]);
 
-        var currentPageWidgets = widgets.filter(function (w) {
-            return w.pageId === pageId;
-        });
-
-        var pervWidget = currentPageWidgets.find(function (w) {
-            return w.index === startIndex;
-        });
-        var finalIndex = endIndex;
-        var increment = false;
-        if (startIndex > endIndex) {
-            endIndex = startIndex + endIndex;
-            startIndex = endIndex - startIndex;
-            endIndex = endIndex - startIndex;
-            finalIndex = startIndex;
-            increment = true;
-        }
-
-        console.log("sdgsgsgsdgs");
-        console.log(startIndex);
-        console.log(endIndex);
-        console.log(pageId);
-
-
-        for (var index = 0; index < currentPageWidgets.length; index++) {
-            var currentWidget = currentPageWidgets[index];
-            if ((currentWidget.index >= startIndex) && (currentWidget.index <= endIndex)) {
-                console.log("PREV index");
-                console.log(currentWidget.index);
-                if (!increment) {
-                    currentPageWidgets[index].index--;
-                }
-
-                else {
-                    currentPageWidgets[index].index++;
-                }
-                console.log("new index");
-                console.log(currentPageWidgets[index].index);
-            }
-        }
-        console.log("gfddg");
-        console.log(pervWidget.index);
-        console.log("finalIndex");
-        console.log(finalIndex);
-        pervWidget.index = finalIndex;
-        res.sendStatus(200);
+        // var pageId = req.params.pageId;
+        //
+        // var startIndex = parseInt(req.query.initial);
+        // var endIndex = parseInt(req.query.final);
+        //
+        // var currentPageWidgets = widgets.filter(function (w) {
+        //     return w.pageId === pageId;
+        // });
+        //
+        // var pervWidget = currentPageWidgets.find(function (w) {
+        //     return w.index === startIndex;
+        // });
+        // var finalIndex = endIndex;
+        // var increment = false;
+        // if (startIndex > endIndex) {
+        //     endIndex = startIndex + endIndex;
+        //     startIndex = endIndex - startIndex;
+        //     endIndex = endIndex - startIndex;
+        //     finalIndex = startIndex;
+        //     increment = true;
+        // }
+        //
+        // console.log("sdgsgsgsdgs");
+        // console.log(startIndex);
+        // console.log(endIndex);
+        // console.log(pageId);
+        //
+        //
+        // for (var index = 0; index < currentPageWidgets.length; index++) {
+        //     var currentWidget = currentPageWidgets[index];
+        //     if ((currentWidget.index >= startIndex) && (currentWidget.index <= endIndex)) {
+        //         console.log("PREV index");
+        //         console.log(currentWidget.index);
+        //         if (!increment) {
+        //             currentPageWidgets[index].index--;
+        //         }
+        //
+        //         else {
+        //             currentPageWidgets[index].index++;
+        //         }
+        //         console.log("new index");
+        //         console.log(currentPageWidgets[index].index);
+        //     }
+        // }
+        // console.log("gfddg");
+        // console.log(pervWidget.index);
+        // console.log("finalIndex");
+        // console.log(finalIndex);
+        // pervWidget.index = finalIndex;
+        // res.sendStatus(200);
     }
 
 };
