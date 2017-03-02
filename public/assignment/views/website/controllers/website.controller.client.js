@@ -22,7 +22,6 @@
                 .error(function (err) {
                     vm.error = "Error while fetching websites!! Please try after sometime";
                 });
-            //vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
         }
 
         init();
@@ -46,7 +45,6 @@
                 .error(function (err) {
                     vm.error = "Error while fetching websites!! Please try after sometime";
                 });
-            //vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
         }
 
         init();
@@ -96,14 +94,12 @@
                     vm.error = "Cannot find current website!! Please try again"
                 });
 
-            //vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
-            //vm.currentwebsite = WebsiteService.findWebsiteById(vm.currentWebSiteId);
         }
 
         init();
 
         function updateWebsite() {
-            console.log("fgbgxfgds");
+            //console.log("fgbgxfgds");
             if (vm.currentwebsite.name != '' && vm.currentwebsite.name != null) {
                 WebsiteService.updateWebsite(vm.currentWebSiteId, vm.currentwebsite)
                     .success(function (response) {

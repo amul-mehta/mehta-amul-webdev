@@ -19,7 +19,6 @@
                     vm.pages = pagesFound;
                 });
 
-            //vm.pages = PageService.findPageByWebsiteId(vm.websiteId);
         }
 
         init();
@@ -33,6 +32,14 @@
 
             vm.userId = $routeParams['uid'];
             vm.websiteId = $routeParams['wid'];
+
+            PageService.findPageByWebsiteId(vm.websiteId)
+                .success(function (pages) {
+                    vm.pages = pages;
+                })
+                .error(function (err) {
+                    vm.error = "Error while fetching websites!! Please try after sometime";
+                });
 
         }
 
@@ -75,8 +82,14 @@
                         vm.currentpage = curPage;
                     }
                 });
-            //vm.currentpage = PageService.findPageById(vm.pageId);
-            //vm.pages = PageService.findPageByWebsiteId(vm.websiteId);
+
+            PageService.findPageByWebsiteId(vm.websiteId)
+                .success(function (pages) {
+                    vm.pages = pages;
+                })
+                .error(function (err) {
+                    vm.error = "Error while fetching websites!! Please try after sometime";
+                });
         }
 
         init();

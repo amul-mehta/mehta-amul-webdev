@@ -30,9 +30,6 @@
                     vm.error = "Error while fetching widgets!! Please try after sometime";
                 });
 
-            //vm.widgets = WidgetService.findWidgetsByPageId(vm.pageId);
-            //vm.currentWidget = WidgetService.findWidgetById(vm.currentWidgetId);
-
         }
 
 
@@ -113,17 +110,6 @@
                         vm.error = "Failed to create new widget";
                     }
                 });
-
-            // var widgetCreated = WidgetService.createWidget(vm.pageId, newWidget);
-            //
-            // if (widgetCreated._id != 0) {
-            //     // Redirecting to widget edit page
-            //     $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + widgetCreated._id);
-            // }
-            // else {
-            //     vm.error = "Failed to create new widget";
-            // }
-
         }
     }
 
@@ -157,16 +143,6 @@
                         vm.error = "Failed to get current Widget";
                     }
                 });
-            // WidgetService.findWidgetById(vm.currentWidgetId)
-            //     .success(function (response) {
-            //         if (response != null) {
-            //             vm.currentWidget = response;
-            //         }
-            //         else {
-            //             vm.error = "Failed to get current Widget";
-            //         }
-            //     });
-            // vm.currentWidget = WidgetService.findWidgetById(vm.currentWidgetId);
         }
 
         init();
@@ -184,16 +160,6 @@
                     }
                 });
 
-
-            // var updateSuccessful = WidgetService.updateWidget(vm.currentWidgetId, vm.currentWidget);
-            //
-            // if (updateSuccessful) {
-            //     // Redirect to widget list page
-            //     $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
-            // }
-            // else {
-            //     vm.error = "Failed to update widget";
-            // }
         }
 
         function deleteWidget() {
@@ -206,15 +172,6 @@
                 .error(function (err) {
                     vm.error = "Failed to delete widget";
                 });
-            // var deleteSuccessful = WidgetService.deleteWidget(vm.currentWidgetId);
-            // console.log(deleteSuccessful);
-            // if (deleteSuccessful) {
-            //     // Redirect to widget list page
-            //     $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
-            // }
-            // else {
-            //     vm.error = "Failed to delete widget";
-            // }
         }
 
     }

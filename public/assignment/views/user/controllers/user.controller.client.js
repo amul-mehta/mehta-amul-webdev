@@ -22,19 +22,6 @@
 
         function login(username, password) {
 
-            // if (typeof(username) === "undefined" || typeof(password) === "undefined") {
-            //     vm.error = "Username / Password cannot be blank";
-            //     return;
-            // }
-            // var user = UserService.findUserByCredentials(username, password);
-            //
-            // if (user === null) {
-            //     vm.error = "No such user";
-            // }
-            // else {
-            //     $location.url("/user/" + user._id);
-            // }
-
             var promise = UserService.findUserByCredentials(username, password);
             promise
                 .success(function (user) {
@@ -69,14 +56,6 @@
                         vm.user = user;
                     }
                 });
-            //var userById = UserService.findUserById($routeParams.uid);
-
-            // if (userById != null) {
-            //     vm.user = userById;
-            // }
-            // else {
-            //     vm.error = "No such user";
-            // }
         }
 
         init();
@@ -92,13 +71,6 @@
                         vm.success = "User successfully updated";
                     }
                 });
-            // var isUpdateSuccessful = UserService.updateUser(userId, updateUser);
-            // if (isUpdateSuccessful) {
-            //     vm.success = "User successfully updated";
-            // }
-            // else {
-            //     vm.error = "Failed to update user";
-            // }
         }
 
         function unregisterUser() {
@@ -151,21 +123,6 @@
             else {
                 vm.error = "Passwords do not match!!"
             }
-
-            // if (user.password === user.verifypassword) {
-            //     console.log(user);
-            //     var isUserCreated = UserService.createUser(user);
-            //
-            //     if (isUserCreated != null) {
-            //         $location.url("/user/" + isUserCreated._id);
-            //     }
-            //     else {
-            //         vm.error = "Failed to create user. Please try again!!"
-            //     }
-            // }
-            // else {
-            //     vm.error = "Passwords do not match!!"
-            // }
         }
     }
 })();
