@@ -61,15 +61,11 @@
         init();
 
         function updateUser(userId, updateUser) {
-            console.log(userId);
             UserService.updateUser(userId, updateUser)
-                .success(function (user) {
-                    if (user === null) {
-                        vm.error = "Failed to update user";
-                    }
-                    else {
-                        vm.success = "User successfully updated";
-                    }
+                .then(function (response) {
+                    vm.message = " User updated successfully.";
+                }, function (error) {
+                    vm.error = "Failed to update user";
                 });
         }
 

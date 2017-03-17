@@ -2,7 +2,9 @@
  * Created by amulmehta on 2/27/17.
  */
 module.exports = function (app) {
-    require("./services/user.service.server.js")(app);
+    var model = require("./model/models.server")();
+
+    require("./services/user.service.server.js")(app, model);
     require("./services/website.service.server.js")(app);
     require("./services/page.service.server.js")(app);
     require("./services/widget.service.server.js")(app);
