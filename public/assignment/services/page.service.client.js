@@ -16,30 +16,11 @@
         };
         return api;
 
-        // Generates a unique random integer
-        function getNewPageId() {
-            var date = new Date();
-
-            var components = [
-                date.getYear(),
-                date.getMonth(),
-                date.getDate(),
-                date.getHours(),
-                date.getMinutes(),
-                date.getSeconds(),
-                date.getMilliseconds()
-            ];
-
-            var id = components.join("");
-
-            return id;
-        }
 
         function createPage(websiteId, page) {
             var url = "/api/website/" + websiteId + "/page";
 
             var newPage = {
-                _id: getNewPageId(),
                 name: page.name,
                 websiteId: websiteId,
                 description: page.description

@@ -1,7 +1,7 @@
 /**
  * Created by amulmehta on 2/27/17.
  */
-module.exports = function (app, model) {
+module.exports = function (app, userModel) {
 
     // var users = [
     //     {
@@ -48,11 +48,12 @@ module.exports = function (app, model) {
     function createUser(req, res) {
         var user = req.body;
         console.log(user);
-        model
-            .userModel
+
+        userModel
             .createUser(user)
             .then(
                 function (newUser) {
+                    console.log(newUser);
                     res.send(newUser);
                 }, function (error) {
                     console.log(error);
@@ -66,8 +67,7 @@ module.exports = function (app, model) {
     function deleteUser(req, res) {
         var uid = req.params.userId;
 
-        model
-            .userModel
+        userModel
             .deleteUser(uid)
             .then(
                 function (status) {
@@ -93,8 +93,7 @@ module.exports = function (app, model) {
         var user = req.body;
         var uid = req.params.userId;
 
-        model
-            .userModel
+        userModel
             .updateUser(uid, user)
             .then(
                 function (status) {
@@ -134,8 +133,7 @@ module.exports = function (app, model) {
     function findUserByUsername(req, res) {
         var username = req.query.username;
 
-        model
-            .userModel
+        userModel
             .findUserByUsername(username)
             .then(
                 function (users) {
@@ -166,8 +164,7 @@ module.exports = function (app, model) {
     function findUserByCredentials(req, res) {
         var username = req.query.username;
         var password = req.query.password;
-        model
-            .userModel
+        userModel
             .findUserByCredentials(username, password)
             .then(
                 function (users) {
@@ -195,8 +192,7 @@ module.exports = function (app, model) {
     function findUserById(req, res) {
         var userId = req.params.userId;
 
-        model
-            .userModel
+        userModel
             .findUserById(userId)
             .then(
                 function (user) {

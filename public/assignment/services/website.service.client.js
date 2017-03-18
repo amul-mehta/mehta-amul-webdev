@@ -17,25 +17,6 @@
         };
         return api;
 
-        // Generates a unique random integer
-        function getNewWebSiteId() {
-            var date = new Date();
-
-            var components = [
-                date.getYear(),
-                date.getMonth(),
-                date.getDate(),
-                date.getHours(),
-                date.getMinutes(),
-                date.getSeconds(),
-                date.getMilliseconds()
-            ];
-
-            var id = components.join("");
-
-            return id;
-        }
-
         // Adds the website parameter instance to the local websites array.
         // The new website's developerId is set to the userId parameter
         function createWebsite(userId, website) {
@@ -43,8 +24,7 @@
             var url = "/api/user/" + userId + "/website";
 
             var newWebsite = {
-                _id: getNewWebSiteId(),
-                name: website.name,
+                 name: website.name,
                 developerId: userId,
                 description: website.description
             };

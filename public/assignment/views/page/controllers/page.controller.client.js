@@ -53,6 +53,7 @@
                 console.log("In Page created");
                 PageService.createPage(vm.websiteId, newPage)
                     .success(function (newCreatedPage) {
+                        console.log(newCreatedPage);
                         if (newCreatedPage == null) {
                             vm.error = "Failed to create new page, Please try again after sometime";
                         }
