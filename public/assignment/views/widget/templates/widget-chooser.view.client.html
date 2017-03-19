@@ -15,7 +15,7 @@
 
 
 <div class="container-fluid">
-    <div class="container-fluid">
+    <div class="container-fluid marginTop">
 
         <div ng-show="model.error" class="alert alert-danger" role="alert">
             {{model.error}}
@@ -34,7 +34,8 @@
         </div>
         <div class="row">
             <div class="col-xs-12">
-                <a href="" class="pull-left blue borderMargin">Text Input</a>
+                <a href ng-click="model.createNewWidget(model.newWidgetText)"
+                   class="pull-left blue borderMargin">Text Input</a>
             </div>
         </div>
         <div class="row">

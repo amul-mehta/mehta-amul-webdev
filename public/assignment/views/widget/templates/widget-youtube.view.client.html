@@ -1,1 +1,3 @@
-<iframe height="345" ng-src={{model.checkSafeURL(widget.url)}} width={{widget.width}}></iframe>
+<div class="embed-responsive embed-responsive-16by9" width={{widget.width}}>
+    <iframe ng-src={{model.checkSafeURL(widget.url)}}></iframe>
+</div>

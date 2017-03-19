@@ -88,6 +88,14 @@
                 text: "<p>Lorem ipsum</p>",
                 name: "HTML Widget"
             };
+            vm.newWidgetText = {
+                name: "Text Input Widget",
+                type: "INPUT",
+                formatted: false,
+                rows: 1,
+                placeholder: "",
+                text: ""
+            };
         }
 
         init();
@@ -141,22 +149,22 @@
 
         init();
 
-        function validateWidgetType(widgetToTest){
+        function validateWidgetType(widgetToTest) {
             var validationFailed = false;
 
-            switch(widgetToTest.type){
+            switch (widgetToTest.type) {
                 case "HEADING":
-                    if(widgetToTest.text == '' || widgetToTest.text == null){
+                    if (widgetToTest.text == '' || widgetToTest.text == null) {
                         validationFailed = true;
                     }
                     break;
                 case "IMAGE":
-                    if(widgetToTest.url == '' || widgetToTest.url == null){
+                    if (widgetToTest.url == '' || widgetToTest.url == null) {
                         validationFailed = true;
                     }
                     break;
                 case "YOUTUBE":
-                    if(widgetToTest.url == '' || widgetToTest.url == null){
+                    if (widgetToTest.url == '' || widgetToTest.url == null) {
                         validationFailed = true;
                     }
                     break;
@@ -165,9 +173,9 @@
             return validationFailed;
         }
 
-        function updateWidget(){
-            if(validateWidgetType(vm.currentWidget)){
-                switch(vm.currentWidget.type) {
+        function updateWidget() {
+            if (validateWidgetType(vm.currentWidget)) {
+                switch (vm.currentWidget.type) {
                     case "HEADING":
                         vm.error = "Header Text cannot be blank";
                         break;
