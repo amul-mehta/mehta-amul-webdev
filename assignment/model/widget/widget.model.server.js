@@ -41,10 +41,12 @@ module.exports = function () {
                                     .findPageById(pageId)
                                     .then(
                                         function (page) {
+                                            console.log(page);
                                             page.widgets.push(newWidget);
                                             newWidget._page = page._id;
                                             page.save();
                                             newWidget.save();
+                                            console.log(newWidget);
                                             return newWidget;
                                         },
                                         function (error) {

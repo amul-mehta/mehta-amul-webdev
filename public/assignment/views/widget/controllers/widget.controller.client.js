@@ -61,39 +61,32 @@
             vm.pageId = $routeParams['pid'];
 
             vm.newWidgetHeader = {
-                _id: "",
-                widgetType: "HEADER",
+                type: "HEADER",
                 pageId: vm.pageId,
                 size: 2,
                 text: "New Header Text",
-                name: "",
-                index: -1
+                name: "Header Widget"
+
             };
             vm.newWidgetImage = {
-                _id: "",
-                widgetType: "IMAGE",
+                type: "IMAGE",
                 pageId: vm.pageId,
                 width: "100%",
                 url: "http://lorempixel.com/400/200/",
-                name: "",
-                index: -1
+                name: "ImageWidget"
             };
             vm.newWidgetYouTube = {
-                _id: "",
-                widgetType: "YOUTUBE",
+                type: "YOUTUBE",
                 pageId: vm.pageId,
                 width: "100%",
                 url: "https://youtu.be/AM2Ivdi9c4E",
-                name: "",
-                index: -1
+                name: "YouTube Widget"
             };
             vm.newWidgetHTML = {
-                _id: "",
-                widgetType: "HTML",
+                type: "HTML",
                 pageId: vm.pageId,
                 text: "<p>Lorem ipsum</p>",
-                name: "",
-                index: -1
+                name: "HTML Widget"
             };
         }
 
@@ -136,6 +129,7 @@
             //vm.getOptions = WidgetService.getOptions();
             WidgetService.findWidgetById(vm.currentWidgetId)
                 .success(function (response) {
+                    console.log(response);
                     if (response != null) {
                         vm.currentWidget = response;
                     }
@@ -147,19 +141,60 @@
 
         init();
 
-        function updateWidget() {
-            console.log(vm.currentWidget);
-            WidgetService.updateWidget(vm.currentWidgetId, vm.currentWidget)
-                .success(function (response) {
-                    console.log(response);
-                    if (response != null) {
-                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
-                    }
-                    else {
-                        vm.error = "Failed to update widget";
-                    }
-                });
+        function validateWidgetType(widgetToTest){
+            var validationFailed = false;
 
+            switch(widgetToTest.type){
+                case "HEADING":
+                    if(widgetToTest.text == '' || widgetToTest.text == null){
+                        validationFailed = true;
+                    }
+                    break;
+                case "IMAGE":
+                    if(widgetToTest.url == '' || widgetToTest.url == null){
+                        validationFailed = true;
+                    }
+                    break;
+                case "YOUTUBE":
+                    if(widgetToTest.url == '' || widgetToTest.url == null){
+                        validationFailed = true;
+                    }
+                    break;
+            }
+
+            return validationFailed;
+        }
+
+        function updateWidget(){
+            if(validateWidgetType(vm.currentWidget)){
+                switch(vm.currentWidget.type) {
+                    case "HEADING":
+                        vm.error = "Header Text cannot be blank";
+                        break;
+                    case "IMAGE":
+                        vm.error = "Image Url cannot be blank";
+                        break;
+                    case "YOUTUBE":
+                        vm.error = "Video Url cannot be blank";
+                        break;
+                    default:
+                        vm.error = "There is something wrong. Please check whether form fields are correctly filled."
+                        break;
+                }
+            }
+            else {
+                console.log(vm.currentWidget);
+                WidgetService.updateWidget(vm.currentWidgetId, vm.currentWidget)
+                    .success(function (response) {
+                        console.log(response);
+                        if (response != null) {
+                            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
+                        }
+                        else {
+                            vm.error = "Failed to update widget";
+                        }
+                    });
+            }
         }
 
         function deleteWidget() {

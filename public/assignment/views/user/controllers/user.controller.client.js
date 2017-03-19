@@ -63,7 +63,8 @@
         function updateUser(userId, updateUser) {
             UserService.updateUser(userId, updateUser)
                 .then(function (response) {
-                    vm.message = " User updated successfully.";
+                    console.log("sdgss");
+                    vm.success = " User updated successfully.";
                 }, function (error) {
                     vm.error = "Failed to update user";
                 });

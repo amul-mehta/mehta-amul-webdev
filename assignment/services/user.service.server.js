@@ -92,7 +92,7 @@ module.exports = function (app, userModel) {
     function updateUser(req, res) {
         var user = req.body;
         var uid = req.params.userId;
-
+        console.log(uid);
         userModel
             .updateUser(uid, user)
             .then(
