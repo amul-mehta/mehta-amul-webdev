@@ -94,35 +94,10 @@ module.exports = function () {
     }
 
     function deleteWidget(widgetId) {
-        return model
-            .widgetModel
-            .findWidgetById(widgetId)
-            .then(function (widget) {
-                return model
-                    .pageModel
-                    .findPageById(widget._page)
-                    .then(
-                        function (page) {
-                            //Remove reference of widgetid in page.widgets array
-                            for (var i = 0; i < page.widgets.length; ++i) {
-                                if (widget._id.equals(page.widgets[i])) {
-                                    page.widgets.splice(i, 1);
-                                    page.save();
-                                    break;
-                                }
-                            }
-                            return WidgetModel
-                                .remove({
-                                    _id: widgetId
-                                });
+        return WidgetModel.findByIdAndRemove(widgetId, function (err,widget) {
+            widget.remove();
+        });
 
-                        },
-                        function (error) {
-                            console.log(error);
-                        }
-                    )
-
-            });
     }
 
     function reorderWidget(pageId, start, end) {
