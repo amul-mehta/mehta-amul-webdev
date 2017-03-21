@@ -4,8 +4,10 @@
 module.exports = function () {
     var model = {};
     var mongoose = require('mongoose');
-    var PageSchema = require('./page.schema.server')();
-    var PageModel = mongoose.model("pageModel", PageSchema);
+    var PageSchema ;
+    var PageModel ;
+
+
 
     var api = {
         createPage: createPage,
@@ -14,12 +16,21 @@ module.exports = function () {
         updatePage: updatePage,
         deletePage: deletePage,
         deleteBulkPages: deleteBulkPages,
-        setModel: setModel
+        setModel: setModel,
+        getModel: getModel
     };
     return api;
 
     function setModel(_model) {
         model = _model;
+         PageSchema = require('./page.schema.server')(_model);
+         PageModel = mongoose.model("pageModel", PageSchema);
+
+
+    }
+
+    function getModel() {
+        return PageModel;
     }
 
     function createPage(websiteId, page) {
@@ -81,46 +92,50 @@ module.exports = function () {
     }
 
     function deletePage(pageId) {
-        return model
-            .pageModel
-            .findPageById(pageId)
-            .then(function (page) {
-                return model
-                    .websiteModel
-                    .findWebsiteById(page._website)
-                    .then(
-                        function (website) {
-                            //Remove reference of pageId in website.pages array
-                            for (var i = 0; i < website.pages.length; ++i) {
-                                if (page._id.equals(website.pages[i])) {
-                                    website.pages.splice(i, 1);
-                                    website.save();
-                                    break;
-                                }
-                            }
+        return PageModel.findByIdAndRemove(pageId, function (err,page) {
+            page.remove();
+        });
 
-                            var widgets = page.widgets;
-
-                            if (0 === widgets.length) {
-                                return PageModel.remove({_id: pageId});
-                            }
-                            else {
-                                return model
-                                    .widgetModel
-                                    .deleteBulkWidgets(widgets)
-                                    .then(function (status) {
-                                            return PageModel.remove({_id: pageId});
-                                        },
-                                        function (error) {
-                                            console.log(error);
-                                        });
-                            }
-                        },
-                        function (error) {
-                            console.log(error);
-                        }
-                    )
-
-            });
+        // return model
+        //     .pageModel
+        //     .findPageById(pageId)
+        //     .then(function (page) {
+        //         return model
+        //             .websiteModel
+        //             .findWebsiteById(page._website)
+        //             .then(
+        //                 function (website) {
+        //                     //Remove reference of pageId in website.pages array
+        //                     for (var i = 0; i < website.pages.length; ++i) {
+        //                         if (page._id.equals(website.pages[i])) {
+        //                             website.pages.splice(i, 1);
+        //                             website.save();
+        //                             break;
+        //                         }
+        //                     }
+        //
+        //                     var widgets = page.widgets;
+        //
+        //                     if (0 === widgets.length) {
+        //                         return PageModel.remove({_id: pageId});
+        //                     }
+        //                     else {
+        //                         return model
+        //                             .widgetModel
+        //                             .deleteBulkWidgets(widgets)
+        //                             .then(function (status) {
+        //                                     return PageModel.remove({_id: pageId});
+        //                                 },
+        //                                 function (error) {
+        //                                     console.log(error);
+        //                                 });
+        //                     }
+        //                 },
+        //                 function (error) {
+        //                     console.log(error);
+        //                 }
+        //             )
+        //
+        //     });
     }
 };

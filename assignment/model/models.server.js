@@ -5,10 +5,11 @@ module.exports = function () {
 
     //mongoose.createConnection(connectionString);
     console.log(mongoose.connection.readyState);
+    var widgetModel = require("./widget/widget.model.server")();
     var userModel = require("./user/user.model.server")();
     var websiteModel = require("./website/website.model.server")();
     var pageModel = require("./page/page.model.server")();
-    var widgetModel = require("./widget/widget.model.server")();
+
 
     var model = {
         userModel: userModel,
@@ -16,14 +17,15 @@ module.exports = function () {
         pageModel: pageModel,
         widgetModel: widgetModel
     };
-
     widgetModel.setModel(model);
     pageModel.setModel(model);
     websiteModel.setModel(model);
     userModel.setModel(model);
+
     console.log(mongoose.connection.readyState);
     mongoose.connection.on('connected', function(){
         console.log("HEYLO");
     });
     return model;
 };
+

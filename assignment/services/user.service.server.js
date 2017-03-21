@@ -66,7 +66,7 @@ module.exports = function (app, userModel) {
 
     function deleteUser(req, res) {
         var uid = req.params.userId;
-
+        console.log(uid);
         userModel
             .deleteUser(uid)
             .then(
@@ -74,6 +74,7 @@ module.exports = function (app, userModel) {
                     res.sendStatus(200);
                 },
                 function (error) {
+                    console.log("LOL");
                     res.sendStatus(400).send(error);
                 }
             );

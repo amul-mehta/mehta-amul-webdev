@@ -199,23 +199,23 @@ module.exports = function (app,widgetModel) {
         // res.sendStatus(deleteSuccessful);
     }
 
-    function updateIndexesAfterDelete(deletedIndex, deletedWidgetPageId) {
-        var widgetsToUpdate = widgets.filter(function (w) {
-            return w.pageId == deletedWidgetPageId;
-        });
-        console.log(deletedIndex);
-        console.log("widgets to u[dae");
-        console.log(widgetsToUpdate);
-        for (var index = 0; index < widgetsToUpdate.length; index++) {
-            console.log(widgetsToUpdate[index].index);
-            if (widgetsToUpdate[index].index > deletedIndex) {
-                widgetsToUpdate[index].index--;
-            }
-        }
-        console.log(widgetsToUpdate);
-        console.log("fgsds");
-        console.log(widgets);
-    }
+    // function updateIndexesAfterDelete(deletedIndex, deletedWidgetPageId) {
+    //     var widgetsToUpdate = widgets.filter(function (w) {
+    //         return w.pageId == deletedWidgetPageId;
+    //     });
+    //     console.log(deletedIndex);
+    //     console.log("widgets to u[dae");
+    //     console.log(widgetsToUpdate);
+    //     for (var index = 0; index < widgetsToUpdate.length; index++) {
+    //         console.log(widgetsToUpdate[index].index);
+    //         if (widgetsToUpdate[index].index > deletedIndex) {
+    //             widgetsToUpdate[index].index--;
+    //         }
+    //     }
+    //     console.log(widgetsToUpdate);
+    //     console.log("fgsds");
+    //     console.log(widgets);
+    // }
 
 
     function uploadImage(req, res) {
@@ -230,27 +230,77 @@ module.exports = function (app,widgetModel) {
             var myFile = req.file;
             var destination = myFile.destination; // folder where file is saved to
 
-            for (var i in widgets) {
-                if (widgets[i]._id === widgetId) {
-                    widgets[i].width = width;
-                    widgets[i].url = req.protocol + '://' + req.get('host') + "/uploads/" + myFile.filename;
-                    pageId = widgets[i].pageId;
-                }
-            }
+            //     model
+            //         .widgetModel
+            //         .updateWidget(widgetId, widget)
+            //         .then(
+            //             function (updatedWidget) {
+            //                 res.redirect("/assignment/#/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId);
+            //             },
+            //             function (failedUpdate) {
+            //                 res.sendStatus(400).send(failedUpdate);
+            //             }
+            //         );
+            //
+            //
+            //     for (var i in widgets) {
+            //         if (widgets[i]._id === widgetId) {
+            //             widgets[i].width = width;
+            //             widgets[i].url = req.protocol + '://' + req.get('host') + "/uploads/" + myFile.filename;
+            //             pageId = widgets[i].pageId;
+            //         }
+            //     }
+            //
+            // }
+                widgetModel
+                .findWidgetById(widgetId)
+                .then(
+                    function (widget) {
+                        // Set the url for the widget
+                        widget.url = "/uploads/" + filename;
+
+                        // Update existing widget and redirect
+                        widgetModel
+                            .updateWidget(widgetId, widget)
+                            .then(
+                                function (updatedWidget) {
+                                    res.redirect("/assignment/#/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId);
+                                },
+                                function (failedUpdate) {
+                                    res.sendStatus(400).send(failedUpdate);
+                                }
+                            );
+                    },
+                    function (error) {
+                        res.sendStatus(400).send(error);
+                    }
+                );
+            //  res.redirect("/assignment/#/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId);
 
         }
-        res.redirect("/assignment/#/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId);
-
     }
 
 
-    function updateWidgetOrder(req, res) {
+        function updateWidgetOrder(req, res) {
+            var pageId = req.params.pageId;
+            var start = parseInt(req.query.initial);
+            var end = parseInt(req.query.final);
 
-        var start = parseInt(req.query.initial);
-        var end = parseInt(req.query.final);
-        console.log(start);
-        console.log(end);
-        widgets.splice(end, 0, widgets.splice(start, 1)[0]);
-    }
+            widgetModel
+                .reorderWidget(pageId, start, end)
+                .then(
+                    function (stats) {
+                        res.sendStatus(200);
+                    },
+                    function (error) {
+                        res.sendStatus(400);
+                    });
+            // var start = parseInt(req.query.initial);
+            // var end = parseInt(req.query.final);
+            // console.log(start);
+            // console.log(end);
+            // widgets.splice(end, 0, widgets.splice(start, 1)[0]);
+        }
+
 
 };

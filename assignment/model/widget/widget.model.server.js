@@ -1,11 +1,12 @@
 /**
  * Created by amulmehta on 3/17/17.
  */
+var WidgetModelReference;
 module.exports = function () {
     var model = {};
     var mongoose = require('mongoose');
-    var WidgetSchema = require('./widget.schema.server')();
-    var WidgetModel = mongoose.model("widgetModel", WidgetSchema);
+    var WidgetSchema;
+    var WidgetModel;
 
     var api = {
         createWidget: createWidget,
@@ -15,12 +16,19 @@ module.exports = function () {
         deleteWidget: deleteWidget,
         deleteBulkWidgets: deleteBulkWidgets,
         reorderWidget: reorderWidget,
-        setModel: setModel
+        setModel: setModel,
+        getModel: getModel
     };
     return api;
 
     function setModel(_model) {
         model = _model;
+        WidgetSchema = require('./widget.schema.server')(_model);
+        WidgetModel = mongoose.model("widgetModel", WidgetSchema);
+
+    }
+    function getModel() {
+        return WidgetModel;
     }
 
     function createWidget(pageId, widget) {
@@ -86,11 +94,65 @@ module.exports = function () {
     }
 
     function deleteWidget(widgetId) {
-        // TODO: complete this
+        return model
+            .widgetModel
+            .findWidgetById(widgetId)
+            .then(function (widget) {
+                return model
+                    .pageModel
+                    .findPageById(widget._page)
+                    .then(
+                        function (page) {
+                            //Remove reference of widgetid in page.widgets array
+                            for (var i = 0; i < page.widgets.length; ++i) {
+                                if (widget._id.equals(page.widgets[i])) {
+                                    page.widgets.splice(i, 1);
+                                    page.save();
+                                    break;
+                                }
+                            }
+                            return WidgetModel
+                                .remove({
+                                    _id: widgetId
+                                });
+
+                        },
+                        function (error) {
+                            console.log(error);
+                        }
+                    )
+
+            });
     }
 
     function reorderWidget(pageId, start, end) {
-        // TODO: complete this
+        console.log("sdfsdf");
+        return WidgetModel
+            .find({_page: pageId}, function (err, widgets) {
+                widgets.forEach(function (widget) {
+                    if (start < end) {
+                        if (widget.order == start) {
+                            widget.order = end;
+                            widget.save();
+                        }
+                        else if (widget.order > start && widget.order <= end) {
+                            widget.order = widget.order - 1;
+                            widget.save();
+                        }
+                    } else {
+                        if (widget.order == start) {
+                            widget.order = end;
+                            widget.save();
+                        }
+
+                        else if (widget.order < start && widget.order >= end) {
+                            widget.order = widget.order + 1;
+                            widget.save();
+                        }
+                    }
+                });
+            });
     }
 
 };
+module.exports.ref = WidgetModelReference;

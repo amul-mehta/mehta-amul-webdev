@@ -4,8 +4,8 @@
 module.exports = function () {
     var model = {};
     var mongoose = require('mongoose');
-    var WebsiteSchema = require('./website.schema.server')();
-    var WebsiteModel = mongoose.model("websiteModel", WebsiteSchema);
+    var WebsiteSchema;
+    var WebsiteModel;
 
     var api = {
         createWebsiteForUser: createWebsiteForUser,
@@ -13,13 +13,21 @@ module.exports = function () {
         findWebsiteById: findWebsiteById,
         updateWebsite: updateWebsite,
         deleteWebsite: deleteWebsite,
-        setModel: setModel
+        setModel: setModel,
+        getModel: getModel
     };
     return api;
 
     function setModel(_model) {
         model = _model;
+        WebsiteSchema = require('./website.schema.server')(_model);
+        WebsiteModel = mongoose.model("websiteModel", WebsiteSchema);
     }
+
+    function getModel() {
+        return WebsiteModel;
+    }
+
 
     function createWebsiteForUser(userId, website) {
         //website._user = userId;
@@ -68,5 +76,61 @@ module.exports = function () {
     }
 
     function deleteWebsite(websiteId) {
+        return WebsiteModel.findByIdAndRemove(websiteId, function (err,website) {
+           website.remove();
+        });
+        // return model
+        //     .websiteModel
+        //     .findWebsiteById(websiteId)
+        //     .then(function (website) {
+        //         return model
+        //             .userModel
+        //             .findUserById(website._user)
+        //             .then(
+        //                 function (user) {
+        //                     //Remove reference of websiteId in user.websites array
+        //                     for (var i = 0; i < user.websites.length; ++i) {
+        //                         if (website._id.equals(user.websites[i])) {
+        //                             user.websites.splice(i, 1);
+        //                             user.save();
+        //                             break;
+        //                         }
+        //                     }
+        //
+        //                     var pages = website.pages;
+        //
+        //                     if (0 === pages.length) {
+        //                         return WebsiteModel.remove({_id: websiteId});
+        //                     }
+        //                     else {
+        //
+        //                         for (j = 0; j < pages.length; j++) {
+        //                             return model
+        //                                 .pageModel
+        //                                 .deletePage(pages[j])
+        //                                 .then(
+        //                                     function (status) {
+        //                                         if (0 === pages.length) {
+        //                                             return WebsiteModel.remove({_id: websiteId});
+        //                                         }
+        //                                         else {
+        //                                             return deleteWebsite(websiteId);
+        //                                         }
+        //                                     },
+        //                                     function (error) {
+        //                                         console.log(error);
+        //                                     }
+        //                                 );
+        //                         }
+        //                     }
+        //
+        //                 },
+        //                 function (error) {
+        //                     console.log(error);
+        //                 }
+        //             )
+        //
+        //     });
     }
+
 };

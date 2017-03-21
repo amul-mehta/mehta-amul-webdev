@@ -5,8 +5,8 @@
 module.exports = function () {
     var model = {};
     var mongoose = require("mongoose");
-    var UserSchema = require("./user.schema.server")();
-    var UserModel = mongoose.model("userModel", UserSchema);
+    var UserSchema ;
+    var UserModel ;
 
     var api = {
         createUser: createUser,
@@ -15,13 +15,21 @@ module.exports = function () {
         updateUser: updateUser,
         findUserByCredentials: findUserByCredentials,
         deleteUser: deleteUser,
-        setModel: setModel
+        setModel: setModel,
+        getModel: getModel
     };
     return api;
 
     function setModel(_model) {
         model = _model;
+        UserSchema = require("./user.schema.server")(model);
+        UserModel = mongoose.model("userModel", UserSchema);
+
     }
+    function getModel() {
+        return UserModel;
+    }
+
 
     function createUser(user) {
         // delete user._id;
@@ -46,47 +54,46 @@ module.exports = function () {
     }
 
     function deleteUser(userId) {
-        return model
-            .pageModel
-            .findPageById(pageId)
-            .then(function (page) {
-                return model
-                    .websiteModel
-                    .findWebsiteById(page._website)
-                    .then(
-                        function (website) {
-                            //Remove reference of pageId in website.pages array
-                            for (var i = 0; i < website.pages.length; ++i) {
-                                if (page._id.equals(website.pages[i])) {
-                                    website.pages.splice(i, 1);
-                                    website.save();
-                                    break;
-                                }
-                            }
+        return UserModel.findByIdAndRemove(userId, function (err,user) {
+            user.remove();
+        });
 
-                            var widgets = page.widgets;
-
-                            if (0 === widgets.length) {
-                                return PageModel.remove({_id: pageId});
-                            }
-                            else {
-                                return model
-                                    .widgetModel
-                                    .deleteBulkWidgets(widgets)
-                                    .then(function (status) {
-                                            return PageModel.remove({_id: pageId});
-                                        },
-                                        function (error) {
-                                            console.log(error);
-                                        });
-                            }
-                        },
-                        function (error) {
-                            console.log(error);
-                        }
-                    )
-
-            });
+        // return model
+        //     .userModel
+        //     .findUserById(userId)
+        //     .then(function (user) {
+        //
+        //             var websites = user.websites;
+        //
+        //             if (0 == websites.length) {
+        //                 return UserModel.remove({_id: userId});
+        //             }
+        //             else {
+        //
+        //                 for (j = 0; j < websites.length; j++) {
+        //                     return model
+        //                         .websiteModel
+        //                         .deleteWebsite(websites[j])
+        //                         .then(
+        //                             function (status) {
+        //                                 if (0 === websites.length) {
+        //                                     return UserModel.remove({_id: userId});
+        //                                 }
+        //                                 else {
+        //                                     return deleteUser(userId);
+        //                                 }
+        //                             },
+        //                             function (error) {
+        //                                 console.log(error);
+        //                             }
+        //                         );
+        //                 }
+        //             }
+        //
+        //         },
+        //         function (error) {
+        //             console.log(error);
+        //         });
     }
 
     function findUserByCredentials(username, password) {

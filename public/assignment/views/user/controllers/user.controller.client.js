@@ -25,7 +25,8 @@
             var promise = UserService.findUserByCredentials(username, password);
             promise
                 .success(function (user) {
-                    if (user === null) {
+                    console.log(user);
+                    if (user.length == 0) {
                         vm.error = "No such user";
                     }
                     else {
@@ -49,7 +50,7 @@
             var promise = UserService.findUserById($routeParams['uid']);
             promise
                 .success(function (user) {
-                    if (user === null) {
+                    if (user.length == 0) {
                         vm.error = "No such user";
                     }
                     else {

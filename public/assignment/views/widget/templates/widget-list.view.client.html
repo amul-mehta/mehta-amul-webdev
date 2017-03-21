@@ -22,9 +22,8 @@
 <!-- main body -->
 <div class="container-fluid marginTop marginBottom">
     <div class="container-fluid" wbdv-sortable="">
-        <div ng-repeat="widget in model.widgets" class="row marginTop widget-Pos">
-
-            <div ng-switch="widget.widgetType">
+        <div ng-repeat="widget in model.widgets | orderBy : 'order'" class="row marginTop widget-Pos">
+            <div ng-switch="widget.type">
                 <div ng-switch-when="HEADER" class="col-xs-12">
                     <ng-include src="'views/widget/templates/widget-header.view.client.html'"></ng-include>
                 </div>
@@ -41,7 +40,7 @@
                     <ng-include src="'views/widget/templates/widget-text.view.client.html'"></ng-include>
                 </div>
 
-                <div ng-switch-when="YOUTUBE" class="img-rounded col-xs-12">
+                <div ng-switch-when="YOUTUBE" class="img-rounded col-xs-12 youtube-widget">
                     <ng-include src="'views/widget/templates/widget-youtube.view.client.html'"></ng-include>
                 </div>
             </div>
