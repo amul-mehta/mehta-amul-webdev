@@ -57,43 +57,6 @@ module.exports = function () {
         return UserModel.findByIdAndRemove(userId, function (err,user) {
             user.remove();
         });
-
-        // return model
-        //     .userModel
-        //     .findUserById(userId)
-        //     .then(function (user) {
-        //
-        //             var websites = user.websites;
-        //
-        //             if (0 == websites.length) {
-        //                 return UserModel.remove({_id: userId});
-        //             }
-        //             else {
-        //
-        //                 for (j = 0; j < websites.length; j++) {
-        //                     return model
-        //                         .websiteModel
-        //                         .deleteWebsite(websites[j])
-        //                         .then(
-        //                             function (status) {
-        //                                 if (0 === websites.length) {
-        //                                     return UserModel.remove({_id: userId});
-        //                                 }
-        //                                 else {
-        //                                     return deleteUser(userId);
-        //                                 }
-        //                             },
-        //                             function (error) {
-        //                                 console.log(error);
-        //                             }
-        //                         );
-        //                 }
-        //             }
-        //
-        //         },
-        //         function (error) {
-        //             console.log(error);
-        //         });
     }
 
     function findUserByCredentials(username, password) {

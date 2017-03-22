@@ -77,15 +77,6 @@ module.exports = function () {
         return WidgetModel.find({"_page": pageId});
     }
 
-    function getHighestIndex(widgets){
-        var max =-1;
-        for(var w in widgets){
-            if (widgets[w].order > max)
-                max =widgets[w].order;
-        }
-        return max;
-    }
-
     function findWidgetById(widgetId) {
         return WidgetModel.findById(widgetId);
     }
@@ -112,13 +103,12 @@ module.exports = function () {
         return WidgetModel.findByIdAndRemove(widgetId, function (err,widget) {
             var pageId = widget._page;
             var order = widget.order;
-            WidgetModel.
-                find({_page:pageId},function (err,widgets) {
+            WidgetModel.find({_page: pageId}, function (err, widgets) {
                 widgets.forEach(function (widget) {
-                   if(widget.order > order){
-                       widget.order = widget.order - 1;
-                       widget.save();
-                   }
+                    if (widget.order > order) {
+                        widget.order = widget.order - 1;
+                        widget.save();
+                    }
                 });
             });
             widget.remove();
@@ -130,7 +120,7 @@ module.exports = function () {
         console.log(start);
         console.log(end);
         return WidgetModel
-            .find({_page: pageId}, function (err, widgets) {
+            .find({ _page: pageId}, function (err, widgets) {
                 widgets.forEach(function (widget) {
                     if (start < end) {
                         if (widget.order == start) {
