@@ -77,6 +77,15 @@ module.exports = function () {
         return WidgetModel.find({"_page": pageId});
     }
 
+    function getHighestIndex(widgets){
+        var max =-1;
+        for(var w in widgets){
+            if (widgets[w].order > max)
+                max =widgets[w].order;
+        }
+        return max;
+    }
+
     function findWidgetById(widgetId) {
         return WidgetModel.findById(widgetId);
     }
@@ -101,13 +110,25 @@ module.exports = function () {
 
     function deleteWidget(widgetId) {
         return WidgetModel.findByIdAndRemove(widgetId, function (err,widget) {
+            var pageId = widget._page;
+            var order = widget.order;
+            WidgetModel.
+                find({_page:pageId},function (err,widgets) {
+                widgets.forEach(function (widget) {
+                   if(widget.order > order){
+                       widget.order = widget.order - 1;
+                       widget.save();
+                   }
+                });
+            });
             widget.remove();
         });
 
     }
 
     function reorderWidget(pageId, start, end) {
-        console.log("sdfsdf");
+        console.log(start);
+        console.log(end);
         return WidgetModel
             .find({_page: pageId}, function (err, widgets) {
                 widgets.forEach(function (widget) {
