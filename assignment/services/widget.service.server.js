@@ -1,7 +1,7 @@
 /**
  * Created by amulmehta on 2/27/17.
  */
-module.exports = function (app,widgetModel) {
+module.exports = function (app, widgetModel) {
 
     // var widgets =
     //     [
@@ -219,6 +219,7 @@ module.exports = function (app,widgetModel) {
 
 
     function uploadImage(req, res) {
+        console.log(req.file);
         if (req.file) {
             console.log(req.myFile);
             console.log(req.body);
@@ -252,21 +253,31 @@ module.exports = function (app,widgetModel) {
             //     }
             //
             // }
-                widgetModel
+            widgetModel
                 .findWidgetById(widgetId)
                 .then(
                     function (widget) {
+                        console.log(widget);
                         // Set the url for the widget
-                        widget.url = "/uploads/" + filename;
+                        console.log("DFsdfsdf")
+                        console.log(widget.url);
+                        widget.width = width;
+                        console.log("DFsdfsdf")
+                        widget.url =  req.protocol + '://' + req.get('host') + "/uploads/" + myFile.filename;
+                        console.log("DFsdfsdf")
+                        pageId = widget._page;
 
                         // Update existing widget and redirect
+                        console.log("DFsdfsdf");
                         widgetModel
-                            .updateWidget(widgetId, widget)
+                            .updateWidget(widget._id, widget)
                             .then(
                                 function (updatedWidget) {
+                                    console.log("saf");
                                     res.redirect("/assignment/#/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId);
                                 },
                                 function (failedUpdate) {
+                                    console.log(failedUpdate);
                                     res.sendStatus(400).send(failedUpdate);
                                 }
                             );
@@ -281,26 +292,26 @@ module.exports = function (app,widgetModel) {
     }
 
 
-        function updateWidgetOrder(req, res) {
-            var pageId = req.params.pageId;
-            var start = parseInt(req.query.initial);
-            var end = parseInt(req.query.final);
+    function updateWidgetOrder(req, res) {
+        var pageId = req.params.pageId;
+        var start = parseInt(req.query.initial);
+        var end = parseInt(req.query.final);
 
-            widgetModel
-                .reorderWidget(pageId, start, end)
-                .then(
-                    function (stats) {
-                        res.sendStatus(200);
-                    },
-                    function (error) {
-                        res.sendStatus(400);
-                    });
-            // var start = parseInt(req.query.initial);
-            // var end = parseInt(req.query.final);
-            // console.log(start);
-            // console.log(end);
-            // widgets.splice(end, 0, widgets.splice(start, 1)[0]);
-        }
+        widgetModel
+            .reorderWidget(pageId, start, end)
+            .then(
+                function (stats) {
+                    res.sendStatus(200);
+                },
+                function (error) {
+                    res.sendStatus(400);
+                });
+        // var start = parseInt(req.query.initial);
+        // var end = parseInt(req.query.final);
+        // console.log(start);
+        // console.log(end);
+        // widgets.splice(end, 0, widgets.splice(start, 1)[0]);
+    }
 
 
 };

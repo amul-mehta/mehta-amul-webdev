@@ -17,6 +17,7 @@ module.exports = function (model) {
         var websiteModel =model.websiteModel.getModel();
         var pageModel = model.pageModel.getModel();
         var widgetModel = model.widgetModel.getModel();
+        var user = this;
 
         pageModel.find({_website: {$in: user.websites}}, '_id', function (err, pages) {
             if(err == null) {

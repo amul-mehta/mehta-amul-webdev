@@ -82,9 +82,15 @@ module.exports = function () {
     }
 
     function updateWidget(widgetId, widget) {
+        console.log("in update");
+        console.log(widgetId);
+        console.log(widget);
         return WidgetModel
             .update(
-                {_id: widgetId}, {
+                {
+                    _id: widgetId
+                },
+                {
                     $set: widget
                 });
     }
@@ -130,4 +136,3 @@ module.exports = function () {
     }
 
 };
-module.exports.ref = WidgetModelReference;
