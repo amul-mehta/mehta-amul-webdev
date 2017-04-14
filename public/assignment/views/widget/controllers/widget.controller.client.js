@@ -208,7 +208,7 @@
         function deleteWidget() {
             console.log(vm.currentWidgetId);
 
-            WidgetService.deleteWidget($routeParams['wgid'])
+                WidgetService.deleteWidget($routeParams['wgid'])
                 .success(function (res) {
                     $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
                 })
